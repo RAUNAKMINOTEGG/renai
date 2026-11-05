@@ -1,53 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RenAi - One AI, Every Language, Whole World</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header>
-  <div class="logo">✦ Ren<span>Ai</span></div>
-  <nav><a href="#chat">Chat</a><a href="#lang">Languages</a><a href="#about">About</a></nav>
-  <button class="btn">Get Started</button>
-</header>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>RenAi - One AI, Every Language</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}body{background:#0a0a12;color:#fff}.top{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#15151f;border-bottom:1px solid #2e2e45}.logo{font-size:22px;font-weight:900}.logo span{color:#a855f7}.btn{padding:7px 14px;border:none;border-radius:20px;background:#a855f7;color:#fff;font-weight:700;cursor:pointer;font-size:13px}.box{max-width:420px;margin:20px auto;padding:15px}.card{background:#15151f;padding:22px;border-radius:20px;border:1px solid #2e2e45;text-align:center}input{width:100%;padding:13px;margin:7px 0;border-radius:10px;border:1px solid #333;background:#0f0f1a;color:#fff;outline:none}button{width:100%;padding:13px;margin-top:8px;border:none;border-radius:10px;font-weight:700;cursor:pointer}.b1{background:#a855f7;color:#fff}.b2{background:#222;color:#fff}.chatbox{background:#15151f;border-radius:15px;padding:15px;min-height:300px;margin-top:15px}.msg{background:#0f0f1a;padding:10px;border-radius:10px;margin:8px 0;font-size:14px;text-align:left}.hidden{display:none}.dp{width:70px;height:70px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto 10px}.row{display:flex;justify-content:space-between;background:#0f0f1a;padding:11px;border-radius:10px;margin:7px 0;font-size:14px;text-align:left}.row b{color:#a855f7}</style>
+</head><body>
 
-<section class="hero">
-  <h1>One AI, Every Language,<br><span>Whole World</span></h1>
-  <p>RenAi is the universal AI that understands, translates, and connects — 100+ languages, real-time, everywhere.</p>
-  <button onclick="document.getElementById('chat').scrollIntoView({behavior:'smooth'})" class="btn-big">Start Chatting →</button>
-  <br>
-  <select id="langSelect" onchange="changeLang(this.value)">
-    <option value="en">🌍 English</option>
-    <option value="hi">🇮🇳 Hindi</option>
-    <option value="hinglish">🇮🇳 Hinglish</option>
-    <option value="es">🇪🇸 Spanish</option>
-    <option value="fr">🇫🇷 French</option>
-    <option value="ar">🇸🇦 Arabic</option>
-    <option value="ja">🇯🇵 Japanese</option>
-    <option value="de">🇩🇪 German</option>
-  </select>
-</section>
+<div class="top"><div class="logo">Ren<span>Ai</span></div><div><span id="topName" style="font-size:13px;margin-right:8px">Guest</span><button class="btn" onclick="showProfile()">Profile</button></div></div>
 
-<section id="chat" class="chat-box">
-  <div class="chat-header">● RenAi Chat <span>Online • 100+ Languages • Demo Version</span></div>
-  <div id="messages" class="messages">
-    <div class="msg ai">Hello! I am <b>RenAi</b>. Ask me anything in any language. This is demo version.</div>
-  </div>
-  <div class="input-area">
-    <input id="userInput" placeholder="Ask RenAi anything..." onkeypress="if(event.key==='Enter') sendMsg()">
-    <button onclick="sendMsg()">➤</button>
-  </div>
-</section>
+<div class="box">
+<!-- LOGIN WALA HISSA -->
+<div id="loginDiv" class="card">
+<h2>Welcome to RenAi 👋</h2><p style="color:#aaa;font-size:13px;margin:8px 0 15px">One AI, Every Language, Whole World</p>
+<input id="name" placeholder="Apna Naam"><input id="email" type="email" placeholder="Email"><input id="pass" type="password" placeholder="Password">
+<button class="b1" onclick="doLogin()">Continue to RenAi →</button>
+<p id="msg" style="font-size:12px;color:#a855f7;margin-top:8px"></p>
+</div>
 
-<section id="about" class="features">
-  <div>💬 <b>RenAi Chat</b><br>ChatGPT jaisa chat</div>
-  <div>🖼️ <b>RenAi Image</b><br>Photo banaye</div>
-  <div>🎙️ <b>RenAi Voice</b><br>Bol ke baat</div>
-  <div>🌍 <b>100+ Languages</b><br>Har bhasha</div>
-</section>
-<footer>Made with ❤️ by RenAi • Demo Version • Powered by Render</footer>
-<script src="script.js"></script>
-</body>
-</html>
+<!-- CHAT WALA HISSA -->
+<div id="chatDiv" class="hidden">
+<div class="card" style="text-align:left"><h3 id="hiText">Hi 👋</h3><p style="color:#aaa;font-size:13px;margin-top:5px">Kya puchna hai bhai? Hindi, English, Hinglish - sab chalega!</p>
+<div class="chatbox" id="chatBox"><div class="msg">🤖 <b>RenAi:</b> Namaste bhai! Main RenAi hu. Kuch bhi pucho!</div></div>
+<div style="display:flex;gap:8px;margin-top:10px"><input id="q" placeholder="Kuch pucho..." style="margin:0"><button class="b1" style="width:80px;margin:0" onclick="ask()">Send</button></div>
+</div>
+</div>
+
+<!-- PROFILE WALA HISSA - USI PAGE ME -->
+<div id="profileDiv" class="hidden card">
+<div class="dp" id="dp">R</div><h2 id="uname">User</h2><p id="uemail" style="color:#aaa;font-size:13px"></p>
+<div class="row"><span>Plan</span><b>FREE</b></div><div class="row"><span>Status</span><b style="color:#22c55e">● Active</b></div>
+<button class="b1" onclick="backToChat()">Chat Pe Wapas →</button><button class="b2" onclick="logout()">Logout</button>
+</div>
+</div>
+
+<script>
+const supabaseClient=supabase.createClient("https://xgznbkuroamqjuxeifbu.supabase.co","sb_publishable_1KDwkpWtxsZxNBPlS89Xsw_dRv_KKFh");
+let curUser=JSON.parse(localStorage.getItem('renai_user')||'null');
+function showUI(){
+if(curUser){
+document.getElementById('loginDiv').classList.add('hidden');
+document.getElementById('chatDiv').classList.remove('hidden');
+document.getElementById('profileDiv').classList.add('hidden');
+document.getElementById('topName').innerText='Hi, '+curUser.name;
+document.getElementById('hiText').innerText='Hi '+curUser.name+' 👋';
+}else{
+document.getElementById('loginDiv').classList.remove('hidden');
+document.getElementById('chatDiv').classList.add('hidden');
+document.getElementById('profileDiv').classList.add('hidden');
+document.getElementById('topName').innerText='Guest';
+}
+}
+async function doLogin(){
+let n=document.getElementById('name').value.trim(),e=document.getElementById('email').value.trim(),p=document.getElementById('pass').value.trim();
+if(!n||!e||!p){alert('Bhai teeno bhar de');return;}
+document.getElementById('msg').innerText='Login ho raha hai...';
+let {data,error}=await supabaseClient.auth.signUp({email:e,password:p});
+if(error && !error.message.includes('already')){alert(error.message);return;}
+let uid=data.user?data.user.id:crypto.randomUUID();
+await supabaseClient.from('profiles').upsert({id:uid,name:n,email:e,plan:'FREE'});
+curUser={name:n,email:e,plan:'FREE'};localStorage.setItem('renai_user',JSON.stringify(curUser));
+alert('Welcome '+n+' bhai! ✅');showUI();
+}
+function showProfile(){
+if(!curUser){alert('Pehle Login kar bhai');return;}
+document.getElementById('chatDiv').classList.add('hidden');
+document.getElementById('profileDiv').classList.remove('hidden');
+document.getElementById('dp').innerText=curUser.name.charAt(0).toUpperCase();
+document.getElementById('uname').innerText=curUser.name;
+document.getElementById('uemail').innerText=curUser.email;
+}
+function backToChat(){document.getElementById('profileDiv').classList.add('hidden');document.getElementById('chatDiv').classList.remove('hidden');}
+async function logout(){await supabaseClient.auth.signOut();localStorage.removeItem('renai_user');curUser=null;showUI();}
+function ask(){let q=document.getElementById('q').value.trim();if(!q)return;let b=document.getElementById('chatBox');b.innerHTML+=`<div class="msg"><b>Tum:</b> ${q}</div><div class="msg">🤖 <b>RenAi:</b> Bhai, ${q} - ye sawal mast hai! Main abhi seekh raha hu, jaldi hi iska pura jawab dunga!</div>`;document.getElementById('q').value='';b.scrollTop=b.scrollHeight;}
+showUI();
+</script></body></html>
