@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RenAi - One AI, Every Language, Whole World</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="logo">✦ Ren<span>Ai</span></div>
+  <nav><a href="#chat">Chat</a><a href="#lang">Languages</a><a href="#about">About</a></nav>
+  <button class="btn">Get Started</button>
+</header>
+
+<section class="hero">
+  <h1>One AI, Every Language,<br><span>Whole World</span></h1>
+  <p>RenAi is the universal AI that understands, translates, and connects — 100+ languages, real-time, everywhere.</p>
+  <button onclick="document.getElementById('chat').scrollIntoView({behavior:'smooth'})" class="btn-big">Start Chatting →</button>
+  <br>
+  <select id="langSelect" onchange="changeLang(this.value)">
+    <option value="en">🌍 English</option>
+    <option value="hi">🇮🇳 Hindi</option>
+    <option value="hinglish">🇮🇳 Hinglish</option>
+    <option value="es">🇪🇸 Spanish</option>
+    <option value="fr">🇫🇷 French</option>
+    <option value="ar">🇸🇦 Arabic</option>
+    <option value="ja">🇯🇵 Japanese</option>
+    <option value="de">🇩🇪 German</option>
+  </select>
+</section>
+
+<section id="chat" class="chat-box">
+  <div class="chat-header">● RenAi Chat <span>Online • 100+ Languages • Demo Version</span></div>
+  <div id="messages" class="messages">
+    <div class="msg ai">Hello! I am <b>RenAi</b>. Ask me anything in any language. This is demo version.</div>
+  </div>
+  <div class="input-area">
+    <input id="userInput" placeholder="Ask RenAi anything..." onkeypress="if(event.key==='Enter') sendMsg()">
+    <button onclick="sendMsg()">➤</button>
+  </div>
+</section>
+
+<section id="about" class="features">
+  <div>💬 <b>RenAi Chat</b><br>ChatGPT jaisa chat</div>
+  <div>🖼️ <b>RenAi Image</b><br>Photo banaye</div>
+  <div>🎙️ <b>RenAi Voice</b><br>Bol ke baat</div>
+  <div>🌍 <b>100+ Languages</b><br>Har bhasha</div>
+</section>
+<footer>Made with ❤️ by RenAi • Demo Version • Powered by Render</footer>
+<script src="script.js"></script>
+</body>
+</html>
