@@ -1,74 +1,128 @@
 <!DOCTYPE html>
-<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>RenAi - One AI, Every Language</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}body{background:#0a0a12;color:#fff}.top{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#15151f;border-bottom:1px solid #2e2e45}.logo{font-size:22px;font-weight:900}.logo span{color:#a855f7}.btn{padding:7px 14px;border:none;border-radius:20px;background:#a855f7;color:#fff;font-weight:700;cursor:pointer;font-size:13px}.box{max-width:420px;margin:20px auto;padding:15px}.card{background:#15151f;padding:22px;border-radius:20px;border:1px solid #2e2e45;text-align:center}input{width:100%;padding:13px;margin:7px 0;border-radius:10px;border:1px solid #333;background:#0f0f1a;color:#fff;outline:none}button{width:100%;padding:13px;margin-top:8px;border:none;border-radius:10px;font-weight:700;cursor:pointer}.b1{background:#a855f7;color:#fff}.b2{background:#222;color:#fff}.chatbox{background:#15151f;border-radius:15px;padding:15px;min-height:300px;margin-top:15px}.msg{background:#0f0f1a;padding:10px;border-radius:10px;margin:8px 0;font-size:14px;text-align:left}.hidden{display:none}.dp{width:70px;height:70px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto 10px}.row{display:flex;justify-content:space-between;background:#0f0f1a;padding:11px;border-radius:10px;margin:7px 0;font-size:14px;text-align:left}.row b{color:#a855f7}</style>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>RenAi - One AI, Every Language</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}body{background:#0a0a12;color:#fff;display:flex;min-height:100vh}.sidebar{width:260px;background:#11111c;border-right:1px solid #2a2a40;padding:15px;position:fixed;height:100vh;overflow-y:auto;z-index:10}.sidebar h2{font-size:24px}.sidebar h2 span{color:#a855f7}.nav button{width:100%;text-align:left;padding:10px 12px;background:transparent;border:none;color:#ccc;border-radius:10px;cursor:pointer;font-size:14px;margin:2px 0}.nav button:hover,.nav button.active{background:#a855f7;color:#fff}.nav small{color:#888;font-size:11px;letter-spacing:1px}.main{flex:1;margin-left:260px;padding:20px;max-width:900px;width:100%}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.card{background:#16161f;border:1px solid #2a2a40;border-radius:16px;padding:18px;margin:12px 0;animation:fade .4s}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.studio{cursor:pointer;text-align:center}.studio:hover{border-color:#a855f7;transform:translateY(-2px)}input,select,textarea{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #333;background:#0f0f1a;color:#fff;outline:none}button.btn{padding:12px 16px;border:none;border-radius:10px;background:#a855f7;color:#fff;font-weight:700;cursor:pointer}.btn2{background:#222;color:#fff}.chatbox{min-height:220px;background:#0f0f1a;border-radius:12px;padding:12px}.msg{background:#1c1c2e;padding:10px;border-radius:10px;margin:8px 0;font-size:14px}.hidden{display:none}.badge{background:#a855f7;padding:3px 8px;border-radius:20px;font-size:11px}.pill{display:inline-block;background:#222;padding:6px 12px;border-radius:20px;font-size:12px;margin:3px;cursor:pointer}.pill.active{background:#a855f7}@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.typing{color:#a855f7;font-size:13px;animation:blink 1s infinite}@keyframes blink{50%{opacity:.3}}@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:none}.main{margin-left:0}.grid{grid-template-columns:1fr}}.topbtn{background:#222;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;cursor:pointer;font-size:12px}</style>
 </head><body>
 
-<div class="top"><div class="logo">Ren<span>Ai</span></div><div><span id="topName" style="font-size:13px;margin-right:8px">Guest</span><button class="btn" onclick="showProfile()">Profile</button></div></div>
-
-<div class="box">
-<!-- LOGIN WALA HISSA -->
-<div id="loginDiv" class="card">
-<h2>Welcome to RenAi 👋</h2><p style="color:#aaa;font-size:13px;margin:8px 0 15px">One AI, Every Language, Whole World</p>
-<input id="name" placeholder="Apna Naam"><input id="email" type="email" placeholder="Email"><input id="pass" type="password" placeholder="Password">
-<button class="b1" onclick="doLogin()">Continue to RenAi →</button>
-<p id="msg" style="font-size:12px;color:#a855f7;margin-top:8px"></p>
+<div class="sidebar" id="side">
+<h2>Ren<span>Ai</span> <span style="font-size:11px;background:#a855f7;padding:2px 6px;border-radius:10px">DEMO</span></h2>
+<p style="font-size:11px;color:#888;margin-top:4px">One AI, Every Language, Whole World</p>
+<div class="nav">
+<small>MAIN</small>
+<button class="active" onclick="show('home',this)">Home</button>
+<button onclick="show('chat',this)">AI Chat</button>
+<button onclick="show('projects',this)">Projects</button>
+<button onclick="show('history',this)">Chat History</button>
+<button onclick="show('explore',this)">Explore AI</button>
+<small>AI STUDIOS - 12 TOOLS</small>
+<button onclick="show('img',this)">Image Studio</button>
+<button onclick="show('video',this)">Video Studio</button>
+<button onclick="show('voice',this)">Voice Studio</button>
+<button onclick="show('research',this)">Research Studio</button>
+<button onclick="show('coding',this)">Coding Studio</button>
+<button onclick="show('docs',this)">Documents Studio</button>
+<button onclick="show('data',this)">Data Analysis</button>
+<button onclick="show('study',this)">Study Studio</button>
+<button onclick="show('writing',this)">Writing Studio</button>
+<button onclick="show('translate',this)">Translation Studio</button>
+<button onclick="show('math',this)">Math Studio</button>
+<button onclick="show('agents',this)">AI Agents</button>
+<small>ACCOUNT</small>
+<button onclick="show('profile',this)">Profile</button>
+<button onclick="show('files',this)">My Files</button>
+<button onclick="show('notif',this)">Notifications</button>
+<button onclick="show('memory',this)">Memory</button>
+<button onclick="show('plans',this)">Plans & Usage</button>
+<button onclick="show('settings',this)">Settings</button>
+<button onclick="show('help',this)">Help & Support</button>
+<button onclick="show('admin',this)">Admin Dashboard</button>
+<button onclick="show('dev',this)">Developer Platform</button>
+</div>
+<p style="font-size:11px;color:#666;text-align:center">Demo Mode - No Real AI - No Real Payment</p>
 </div>
 
-<!-- CHAT WALA HISSA -->
-<div id="chatDiv" class="hidden">
-<div class="card" style="text-align:left"><h3 id="hiText">Hi 👋</h3><p style="color:#aaa;font-size:13px;margin-top:5px">Kya puchna hai bhai? Hindi, English, Hinglish - sab chalega!</p>
-<div class="chatbox" id="chatBox"><div class="msg">🤖 <b>RenAi:</b> Namaste bhai! Main RenAi hu. Kuch bhi pucho!</div></div>
-<div style="display:flex;gap:8px;margin-top:10px"><input id="q" placeholder="Kuch pucho..." style="margin:0"><button class="b1" style="width:80px;margin:0" onclick="ask()">Send</button></div>
-</div>
+<div class="main">
+<div class="top"><button class="topbtn" onclick="document.getElementById('side').classList.toggle('open')">Menu</button><div><span id="topName">Hi, Guest</span> <button class="topbtn" onclick="show('profile')">Profile</button></div></div>
+
+<div id="home" class="sec">
+<div class="card"><h1>Hello, Welcome to <span style="color:#a855f7">RenAi</span></h1><p style="color:#aaa;margin:8px 0">One AI, Every Language, Whole World. Chat, Create Images, Videos, Code, Research - All in One Place.</p><div><span class="pill active" onclick="show('chat')">Start Chat</span><span class="pill" onclick="show('img')">Create Image</span><span class="pill" onclick="show('coding')">Write Code</span><span class="pill" onclick="show('plans')">Go Plus</span></div></div>
+<div class="card"><h3>Explore AI Studios</h3><div class="grid">
+<div class="card studio" onclick="show('img')"><b>Image</b><br>Image Studio<br><small style="color:#888">Text to Image</small></div>
+<div class="card studio" onclick="show('video')"><b>Video</b><br>Video Studio<br><small style="color:#888">Text to Video</small></div>
+<div class="card studio" onclick="show('voice')"><b>Voice</b><br>Voice Studio<br><small style="color:#888">Voice Chat, TTS</small></div>
+<div class="card studio" onclick="show('coding')"><b>Code</b><br>Coding Studio<br><small style="color:#888">Build Websites</small></div>
+<div class="card studio" onclick="show('research')"><b>Search</b><br>Research Studio<br><small style="color:#888">Deep Research</small></div>
+<div class="card studio" onclick="show('study')"><b>Study</b><br>Study Studio<br><small style="color:#888">AI Tutor, Quiz</small></div>
+</div><button class="btn" onclick="show('explore')">View All 12 Studios</button></div>
+<div class="card"><h3>Recent Chats</h3><div id="recentList"><p style="color:#888;font-size:13px">No chats yet. Start your first chat!</p></div></div>
 </div>
 
-<!-- PROFILE WALA HISSA - USI PAGE ME -->
-<div id="profileDiv" class="hidden card">
-<div class="dp" id="dp">R</div><h2 id="uname">User</h2><p id="uemail" style="color:#aaa;font-size:13px"></p>
-<div class="row"><span>Plan</span><b>FREE</b></div><div class="row"><span>Status</span><b style="color:#22c55e">● Active</b></div>
-<button class="b1" onclick="backToChat()">Chat Pe Wapas →</button><button class="b2" onclick="logout()">Logout</button>
-</div>
-</div>
+<div id="chat" class="sec hidden">
+<div class="card"><h2>RenAi Chat</h2><p style="color:#888;font-size:13px">Demo AI - Simulated Response</p>
+<div style="display:flex;gap:8px;margin:10px 0"><button class="btn" onclick="newChat()">+ New Chat</button><input id="searchChat" placeholder="Search chats..." style="margin:0"></div>
+<div class="chatbox" id="chatBox"><div class="msg"><b>RenAi:</b> Hello! I am RenAi. Ask me anything in any language!</div></div>
+<p id="typing" class="typing hidden">RenAi is thinking...</p>
+<div style="display:flex;gap:8px;margin-top:10px"><input id="q" placeholder="Ask anything..."><button class="btn" style="width:90px" onclick="ask()">Send</button></div>
+<div style="margin-top:10px"><button class="btn2 btn" onclick="regenerate()">Regenerate</button> <button class="btn2 btn" onclick="copyLast()">Copy</button> <button class="btn2 btn" onclick="exportChat()">Export</button> <button class="btn2 btn" onclick="attachFile()">Attach</button> <button class="btn2 btn" onclick="voiceInput()">Voice</button></div>
+</div></div>
 
+<div id="projects" class="sec hidden"><div class="card"><h2>Projects</h2><input id="projName" placeholder="Project Name e.g. My Website"><textarea id="projInst" placeholder="Project Instructions..."></textarea><button class="btn" onclick="addProject()">+ Create Project</button><div id="projList"></div></div></div>
+<div id="history" class="sec hidden"><div class="card"><h2>Chat History</h2><p style="color:#888;font-size:13px">Today / Yesterday / Previous 7 Days</p><div id="histList"></div><button class="btn btn2" onclick="clearHistory()">Clear All History</button></div></div>
+<div id="explore" class="sec hidden"><div class="card"><h2>Explore AI - All Studios</h2><div class="grid" id="exploreGrid"></div></div></div>
+
+<div id="img" class="sec hidden"><div class="card"><h2>Image Studio</h2><input id="imgP" placeholder="Describe image e.g. A cute cat in space"><select id="imgRatio"><option>1:1 Square</option><option>16:9 Wide</option><option>9:16 Portrait</option></select><select id="imgStyle"><option>Realistic</option><option>Anime</option><option>3D</option><option>Cinematic</option></select><button class="btn" onclick="genImg()">Generate Image (Demo)</button><div id="imgOut"></div><p style="color:#888;font-size:12px;margin-top:8px">History: Saved in this browser - Demo Workflow</p></div></div>
+<div id="video" class="sec hidden"><div class="card"><h2>Video Studio</h2><input placeholder="Text to Video prompt..."><input placeholder="Image to Video - Upload image (Demo)"><button class="btn" onclick="demoGen('Video')">Generate Video (Demo)</button><div class="card">Storyboard: Scene 1 - Scene 2 - Scene 3</div></div></div>
+<div id="voice" class="sec hidden"><div class="card"><h2>Voice Studio</h2><button class="btn" onclick="voiceInput()">Start Voice Chat</button><div style="font-size:28px;margin:12px 0">Voice Waveform Animation</div><select><option>Voice: Aria - Female</option><option>Voice: Arjun - Male</option><option>Voice: Sara - Female</option></select><input placeholder="Text to Speech..."><button class="btn btn2" onclick="demoGen('Audio')">Convert to Speech (Demo)</button></div></div>
+<div id="research" class="sec hidden"><div class="card"><h2>Research Studio</h2><input id="resQ" placeholder="Research topic..."><button class="btn" onclick="doResearch()">Deep Research</button><div id="resOut"></div></div></div>
+<div id="coding" class="sec hidden"><div class="card"><h2>Coding Studio</h2><input id="codeQ" placeholder="What to build? e.g. Portfolio Website"><button class="btn" onclick="doCode()">Generate Code (Demo)</button><textarea id="codeOut" rows="8" placeholder="Your code will appear here..."></textarea><button class="btn btn2" onclick="exportChat()">Export Code</button></div></div>
+<div id="docs" class="sec hidden"><div class="card"><h2>Documents Studio</h2><button class="btn" onclick="attachFile()">Upload PDF / Word / Excel (Demo)</button><button class="btn btn2" onclick="demoGen('Document Summary')">Summarize Document</button><button class="btn btn2" onclick="demoGen('Document')">Generate Document</button></div></div>
+<div id="data" class="sec hidden"><div class="card"><h2>Data Analysis Studio</h2><button class="btn" onclick="attachFile()">Upload CSV / Excel (Demo)</button><div style="background:#0f0f1a;padding:15px;border-radius:10px;margin:10px 0">Chart Preview<br>Sales +24% (Demo)</div><button class="btn" onclick="demoGen('Data Report')">Generate Report</button></div></div>
+<div id="study" class="sec hidden"><div class="card"><h2>Study Studio - AI Tutor</h2><input placeholder="Subject e.g. Maths, Science"><button class="btn" onclick="demoGen('Quiz')">Generate Quiz</button><button class="btn btn2" onclick="demoGen('Notes')">Generate Notes</button><div id="studyOut"></div></div></div>
+<div id="writing" class="sec hidden"><div class="card"><h2>Writing Studio</h2><select id="writeType"><option>Article</option><option>Email</option><option>Social Media Post</option><option>Script</option><option>Story</option></select><input id="writeTopic" placeholder="Topic..."><button class="btn" onclick="doWrite()">Write (Demo)</button><div id="writeOut"></div></div></div>
+<div id="translate" class="sec hidden"><div class="card"><h2>Translation Studio</h2><select id="fromLang"><option>English</option><option>Spanish</option><option>French</option></select><select id="toLang"><option>Spanish</option><option>English</option><option>French</option><option>Japanese</option></select><input id="transText" placeholder="Enter text to translate..."><button class="btn" onclick="doTranslate()">Translate</button><div id="transOut"></div></div></div>
+<div id="math" class="sec hidden"><div class="card"><h2>Math Studio</h2><input id="mathQ" placeholder="e.g. 12 x 15 + 20"><button class="btn" onclick="doMath()">Solve Step-by-Step</button><div id="mathOut"></div></div></div>
+<div id="agents" class="sec hidden"><div class="card"><h2>AI Agents</h2><div class="grid"><div class="card">Research Agent<br><small>Auto Research</small></div><div class="card">Coding Agent<br><small>Build Apps</small></div><div class="card">Writing Agent<br><small>Write Content</small></div><div class="card">Data Agent<br><small>Analyze Data</small></div></div><p style="color:#888;font-size:12px">Multi-Agent Collaboration - Demo Preview</p></div></div>
+
+<div id="profile" class="sec hidden"><div class="card" style="text-align:center"><div style="width:70px;height:70px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto" id="dp">R</div><h2 id="uname">Guest User</h2><p id="uemail" style="color:#aaa">guest@renai.com</p><input id="editName" placeholder="Edit Name"><button class="btn" onclick="saveProfile()">Save Profile</button><button class="btn btn2" onclick="logout()">Logout</button></div></div>
+<div id="files" class="sec hidden"><div class="card"><h2>My Files</h2><button class="btn" onclick="attachFile()">+ Upload File (Demo)</button><div id="fileList"><p style="color:#888">No files yet</p></div></div></div>
+<div id="notif" class="sec hidden"><div class="card"><h2>Notifications</h2><div class="msg">Welcome to RenAi!</div><div class="msg">Plus Plan Offer - 299/month (Demo)</div><div class="msg">New Studio Added - Video Studio</div></div></div>
+<div id="memory" class="sec hidden"><div class="card"><h2>Memory</h2><p style="color:#888;font-size:13px">RenAi remembers your preferences.</p><div class="msg">User likes: English, Coding</div><button class="btn btn2" onclick="clearHistory()">Clear Memory</button></div></div>
+<div id="plans" class="sec hidden"><div class="card"><h2>Plans & Usage</h2><div class="grid"><div class="card"><b>Free</b><br>Rs 0<br>Basic Chat</div><div class="card" style="border-color:#a855f7"><b>Plus</b><br>Rs 299/mo <span class="badge">POPULAR</span><br>All Studios</div><div class="card"><b>Pro</b><br>Rs 799/mo<br>Priority + Agents</div><div class="card"><b>Ultra</b><br>Rs 1,499/mo<br>Everything Unlimited</div></div><p style="color:#888;font-size:12px">Prices are proposals only. No real payment. Demo Payment Gateway.</p><button class="btn" onclick="demoGen('Upgrade to Plus')">Upgrade to Plus (Demo)</button><div class="card">Usage: Chats 12/100 - Images 3/20 - <progress value="20" max="100" style="width:100%"></progress></div></div></div>
+<div id="settings" class="sec hidden"><div class="card"><h2>Settings</h2><label>Language</label><select id="langSel"><option>English</option></select><label>Theme</label><select onchange="changeTheme(this.value)"><option>Dark Mode</option><option>Light Mode</option></select><label>Account</label><button class="btn btn2" onclick="show('profile')">Profile Settings</button><button class="btn btn2" onclick="alert('Privacy Settings - Demo')">Privacy Settings</button><button class="btn btn2" onclick="alert('Security - Active Sessions: 1 Device - Demo')">Security & Sessions</button></div></div>
+<div id="help" class="sec hidden"><div class="card"><h2>Help & Support</h2><input placeholder="Search help..."><div class="msg">How to create a Project? Go to Projects - Create</div><div class="msg">How to change language? Go to Settings - Language</div><button class="btn" onclick="alert('Support Ticket Created - Demo')">Contact Support</button></div></div>
+<div id="admin" class="sec hidden"><div class="card"><h2>Admin Dashboard - RenAi</h2><input type="password" id="apass" placeholder="Admin Password"><button class="btn" onclick="unlockAdmin()">Unlock Admin</button><div id="adminPanel" class="hidden"><div class="grid"><div class="card">Users<br><b>1,248</b></div><div class="card">Revenue (Preview)<br><b>Rs 84,500</b></div><div class="card">Chats Today<br><b>3,420</b></div><div class="card">Safety Alerts<br><b>0</b></div></div><div class="card">User Management - Subscription - AI Tools - Model Management - Usage Analytics - Feedback - Audit Logs - All Demo Preview</div></div></div></div>
+<div id="dev" class="sec hidden"><div class="card"><h2>Developer Platform</h2><p style="color:#888">API Documentation - SDK - Model Directory</p><div class="card">API Key: <code>renai_demo_xxxxxxxx</code> (Demo Only - Not Real)</div><button class="btn btn2" onclick="alert('API Docs - Demo')">View API Docs</button><button class="btn btn2" onclick="alert('Model: RenAi-1 Demo')">Model Directory</button></div></div>
+
+<div id="loginOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:99;padding:15px"><div class="card" style="max-width:380px;width:100%;text-align:center"><h2>Welcome to RenAi</h2><p style="color:#aaa;font-size:13px">One AI, Every Language, Whole World</p><button class="btn btn2" onclick="gmailLogin()">Continue with Gmail (Demo)</button><p style="font-size:11px;color:#666;margin:8px">OR</p><input id="lname" placeholder="Your Name"><input id="lemail" placeholder="Email"><input id="lpass" type="password" placeholder="Password"><input id="lotp" placeholder="Demo OTP (Any 4 digits - Optional)"><button class="btn" onclick="doLogin()">Continue to RenAi</button><p style="font-size:11px;color:#888;margin-top:8px">Demo Login - No Real Auth - Forgot Password? (Demo)</p></div></div>
+
+</div>
 <script>
-const supabaseClient=supabase.createClient("https://xgznbkuroamqjuxeifbu.supabase.co","sb_publishable_1KDwkpWtxsZxNBPlS89Xsw_dRv_KKFh");
-let curUser=JSON.parse(localStorage.getItem('renai_user')||'null');
-function showUI(){
-if(curUser){
-document.getElementById('loginDiv').classList.add('hidden');
-document.getElementById('chatDiv').classList.remove('hidden');
-document.getElementById('profileDiv').classList.add('hidden');
-document.getElementById('topName').innerText='Hi, '+curUser.name;
-document.getElementById('hiText').innerText='Hi '+curUser.name+' 👋';
-}else{
-document.getElementById('loginDiv').classList.remove('hidden');
-document.getElementById('chatDiv').classList.add('hidden');
-document.getElementById('profileDiv').classList.add('hidden');
-document.getElementById('topName').innerText='Guest';
-}
-}
-async function doLogin(){
-let n=document.getElementById('name').value.trim(),e=document.getElementById('email').value.trim(),p=document.getElementById('pass').value.trim();
-if(!n||!e||!p){alert('Bhai teeno bhar de');return;}
-document.getElementById('msg').innerText='Login ho raha hai...';
-let {data,error}=await supabaseClient.auth.signUp({email:e,password:p});
-if(error && !error.message.includes('already')){alert(error.message);return;}
-let uid=data.user?data.user.id:crypto.randomUUID();
-await supabaseClient.from('profiles').upsert({id:uid,name:n,email:e,plan:'FREE'});
-curUser={name:n,email:e,plan:'FREE'};localStorage.setItem('renai_user',JSON.stringify(curUser));
-alert('Welcome '+n+' bhai! ✅');showUI();
-}
-function showProfile(){
-if(!curUser){alert('Pehle Login kar bhai');return;}
-document.getElementById('chatDiv').classList.add('hidden');
-document.getElementById('profileDiv').classList.remove('hidden');
-document.getElementById('dp').innerText=curUser.name.charAt(0).toUpperCase();
-document.getElementById('uname').innerText=curUser.name;
-document.getElementById('uemail').innerText=curUser.email;
-}
-function backToChat(){document.getElementById('profileDiv').classList.add('hidden');document.getElementById('chatDiv').classList.remove('hidden');}
-async function logout(){await supabaseClient.auth.signOut();localStorage.removeItem('renai_user');curUser=null;showUI();}
-function ask(){let q=document.getElementById('q').value.trim();if(!q)return;let b=document.getElementById('chatBox');b.innerHTML+=`<div class="msg"><b>Tum:</b> ${q}</div><div class="msg">🤖 <b>RenAi:</b> Bhai, ${q} - ye sawal mast hai! Main abhi seekh raha hu, jaldi hi iska pura jawab dunga!</div>`;document.getElementById('q').value='';b.scrollTop=b.scrollHeight;}
-showUI();
+let chats=JSON.parse(localStorage.getItem('renai_chats')||'[]');let cur=localStorage.getItem('renai_name')||'';
+function show(id,btn){document.querySelectorAll('.sec').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(window.innerWidth<768)document.getElementById('side').classList.remove('open');window.scrollTo({top:0,behavior:'smooth'});}
+function doLogin(){let n=document.getElementById('lname').value||'RenAi User';localStorage.setItem('renai_name',n);document.getElementById('loginOverlay').style.display='none';document.getElementById('topName').innerText='Hi, '+n;document.getElementById('uname').innerText=n;document.getElementById('dp').innerText=n.charAt(0).toUpperCase();document.getElementById('editName').value=n;}
+function gmailLogin(){let e=prompt('Enter Gmail (Demo):');if(e){doLogin();}}
+function logout(){localStorage.removeItem('renai_name');location.reload();}
+if(cur){document.getElementById('loginOverlay').style.display='none';document.getElementById('topName').innerText='Hi, '+cur;document.getElementById('uname').innerText=cur;document.getElementById('dp').innerText=cur.charAt(0).toUpperCase();}
+function ask(){let q=document.getElementById('q').value.trim();if(!q)return;let b=document.getElementById('chatBox');b.innerHTML+=`<div class="msg"><b>You:</b> ${q}</div>`;document.getElementById('q').value='';document.getElementById('typing').classList.remove('hidden');setTimeout(()=>{document.getElementById('typing').classList.add('hidden');b.innerHTML+=`<div class="msg"><b>RenAi:</b> Great question about "${q}"! This is a demo response. In full version, RenAi will give detailed answer in your selected language.</div>`;chats.push({q:q,time:new Date().toLocaleString()});localStorage.setItem('renai_chats',JSON.stringify(chats));renderHistory();},900);}
+function newChat(){document.getElementById('chatBox').innerHTML='<div class="msg"><b>RenAi:</b> New chat started! Ask me anything!</div>';}
+function regenerate(){document.getElementById('chatBox').innerHTML+='<div class="msg"><b>RenAi:</b> Here is a regenerated answer (Demo) - Even better explanation!</div>';}
+function copyLast(){alert('Copied! (Demo)');}
+function exportChat(){alert('Chat Exported! (Demo)');}
+function attachFile(){alert('File Upload - Demo Mode. Cloud storage simulated.');document.getElementById('fileList').innerHTML+='<div class="msg">demo-file.pdf - Uploaded (Demo)</div>';}
+function voiceInput(){alert('Voice Input - Demo. Speak now... (Browser Mic Demo)');}
+function renderHistory(){let h=document.getElementById('histList');let r=document.getElementById('recentList');if(!chats.length)return;h.innerHTML=chats.slice(-10).reverse().map(c=>`<div class="msg">${c.q} <br><small style="color:#888">${c.time}</small></div>`).join('');r.innerHTML=chats.slice(-3).reverse().map(c=>`<div class="msg">${c.q}</div>`).join('');}
+function clearHistory(){chats=[];localStorage.removeItem('renai_chats');renderHistory();alert('History Cleared');}
+function addProject(){let n=document.getElementById('projName').value;if(!n)return alert('Enter project name');document.getElementById('projList').innerHTML+=`<div class="msg">${n} - Created! <button onclick="alert('Project Opened - Demo')">Open</button></div>`;document.getElementById('projName').value='';}
+function genImg(){let p=document.getElementById('imgP').value||'Beautiful AI Art';document.getElementById('imgOut').innerHTML=`<div class="card" style="text-align:center"><small style="font-size:13px">Image Generated (Demo)<br>"${p}"<br>Style: ${document.getElementById('imgStyle').value} - Ratio: ${document.getElementById('imgRatio').value}</small></div>`;}
+function demoGen(t){alert(t+' Generated! (Demo Workflow)');document.getElementById('studyOut').innerHTML=`<div class="msg">${t} - Demo Content Generated!</div>`;}
+function doResearch(){let q=document.getElementById('resQ').value||'AI Future';document.getElementById('resOut').innerHTML=`<div class="msg"><b>Research Report on ${q}:</b><br>1. Introduction...<br>2. Key Findings...<br>3. Sources: [1] Demo Source, [2] Demo Source<br>Citations Included (Demo)</div>`;}
+function doCode(){let q=document.getElementById('codeQ').value||'Website';document.getElementById('codeOut').value=`// RenAi Coding Studio - Demo\n// Project: ${q}\nfunction hello(){ console.log("Hello from RenAi!"); }\n// Full code in Pro version`;}
+function doWrite(){let t=document.getElementById('writeTopic').value||'AI';document.getElementById('writeOut').innerHTML=`<div class="msg"><b>${document.getElementById('writeType').value} on ${t}:</b><br>This is a demo article written by RenAi... Grammar checked</div>`;}
+function doTranslate(){let txt=document.getElementById('transText').value||'Hello';document.getElementById('transOut').innerHTML=`<div class="msg">Translated (${document.getElementById('fromLang').value} to ${document.getElementById('toLang').value}): ${txt} - Demo Translation - Language Detected</div>`;}
+function doMath(){let q=document.getElementById('mathQ').value||'12 x 15';try{document.getElementById('mathOut').innerHTML=`<div class="msg"><b>Solution:</b><br>Step 1: ${q}<br>Step 2: Calculate...<br>Answer: ${eval(q.replace(/x/g,'*'))} (Demo Step-by-Step)</div>`;}catch(e){document.getElementById('mathOut').innerHTML='<div class="msg">Enter valid math e.g. 12*15+20</div>';}}
+function changeTheme(v){if(v.includes('Light')){document.body.style.background='#f5f5f5';document.body.style.color='#000';}else{document.body.style.background='#0a0a12';document.body.style.color='#fff';}}
+function saveProfile(){let n=document.getElementById('editName').value;localStorage.setItem('renai_name',n);document.getElementById('topName').innerText='Hi, '+n;document.getElementById('uname').innerText=n;alert('Profile Saved!');}
+function unlockAdmin(){if(document.getElementById('apass').value==='renai123'){document.getElementById('adminPanel').classList.remove('hidden');}else alert('Wrong Password! Default: renai123');}
+let studios=[['img','Image Studio','Text to Image'],['video','Video Studio','Text to Video'],['voice','Voice Studio','Voice Chat'],['research','Research Studio','Deep Research'],['coding','Coding Studio','Build Apps'],['docs','Documents Studio','PDF Tools'],['data','Data Studio','Charts & Reports'],['study','Study Studio','AI Tutor'],['writing','Writing Studio','Articles & Emails'],['translate','Translation Studio','Translate Text'],['math','Math Studio','Step Solutions'],['agents','AI Agents','Auto Agents']];
+document.getElementById('exploreGrid').innerHTML=studios.map(s=>`<div class="card studio" onclick="show('${s[0]}')">${s[1]}<br><small style="color:#888">${s[2]}</small></div>`).join('');
+renderHistory();
 </script></body></html>
