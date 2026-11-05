@@ -1,128 +1,208 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>RenAi - One AI, Every Language</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}body{background:#0a0a12;color:#fff;display:flex;min-height:100vh}.sidebar{width:260px;background:#11111c;border-right:1px solid #2a2a40;padding:15px;position:fixed;height:100vh;overflow-y:auto;z-index:10}.sidebar h2{font-size:24px}.sidebar h2 span{color:#a855f7}.nav button{width:100%;text-align:left;padding:10px 12px;background:transparent;border:none;color:#ccc;border-radius:10px;cursor:pointer;font-size:14px;margin:2px 0}.nav button:hover,.nav button.active{background:#a855f7;color:#fff}.nav small{color:#888;font-size:11px;letter-spacing:1px}.main{flex:1;margin-left:260px;padding:20px;max-width:900px;width:100%}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.card{background:#16161f;border:1px solid #2a2a40;border-radius:16px;padding:18px;margin:12px 0;animation:fade .4s}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.studio{cursor:pointer;text-align:center}.studio:hover{border-color:#a855f7;transform:translateY(-2px)}input,select,textarea{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #333;background:#0f0f1a;color:#fff;outline:none}button.btn{padding:12px 16px;border:none;border-radius:10px;background:#a855f7;color:#fff;font-weight:700;cursor:pointer}.btn2{background:#222;color:#fff}.chatbox{min-height:220px;background:#0f0f1a;border-radius:12px;padding:12px}.msg{background:#1c1c2e;padding:10px;border-radius:10px;margin:8px 0;font-size:14px}.hidden{display:none}.badge{background:#a855f7;padding:3px 8px;border-radius:20px;font-size:11px}.pill{display:inline-block;background:#222;padding:6px 12px;border-radius:20px;font-size:12px;margin:3px;cursor:pointer}.pill.active{background:#a855f7}@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.typing{color:#a855f7;font-size:13px;animation:blink 1s infinite}@keyframes blink{50%{opacity:.3}}@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:none}.main{margin-left:0}.grid{grid-template-columns:1fr}}.topbtn{background:#222;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;cursor:pointer;font-size:12px}</style>
-</head><body>
-
-<div class="sidebar" id="side">
-<h2>Ren<span>Ai</span> <span style="font-size:11px;background:#a855f7;padding:2px 6px;border-radius:10px">DEMO</span></h2>
-<p style="font-size:11px;color:#888;margin-top:4px">One AI, Every Language, Whole World</p>
-<div class="nav">
-<small>MAIN</small>
-<button class="active" onclick="show('home',this)">Home</button>
-<button onclick="show('chat',this)">AI Chat</button>
-<button onclick="show('projects',this)">Projects</button>
-<button onclick="show('history',this)">Chat History</button>
-<button onclick="show('explore',this)">Explore AI</button>
-<small>AI STUDIOS - 12 TOOLS</small>
-<button onclick="show('img',this)">Image Studio</button>
-<button onclick="show('video',this)">Video Studio</button>
-<button onclick="show('voice',this)">Voice Studio</button>
-<button onclick="show('research',this)">Research Studio</button>
-<button onclick="show('coding',this)">Coding Studio</button>
-<button onclick="show('docs',this)">Documents Studio</button>
-<button onclick="show('data',this)">Data Analysis</button>
-<button onclick="show('study',this)">Study Studio</button>
-<button onclick="show('writing',this)">Writing Studio</button>
-<button onclick="show('translate',this)">Translation Studio</button>
-<button onclick="show('math',this)">Math Studio</button>
-<button onclick="show('agents',this)">AI Agents</button>
-<small>ACCOUNT</small>
-<button onclick="show('profile',this)">Profile</button>
-<button onclick="show('files',this)">My Files</button>
-<button onclick="show('notif',this)">Notifications</button>
-<button onclick="show('memory',this)">Memory</button>
-<button onclick="show('plans',this)">Plans & Usage</button>
-<button onclick="show('settings',this)">Settings</button>
-<button onclick="show('help',this)">Help & Support</button>
-<button onclick="show('admin',this)">Admin Dashboard</button>
-<button onclick="show('dev',this)">Developer Platform</button>
-</div>
-<p style="font-size:11px;color:#666;text-align:center">Demo Mode - No Real AI - No Real Payment</p>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RenAi - One AI, Every Language</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#0b1026;color:#fff;display:flex;height:100vh;overflow:hidden}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pop{0%{transform:scale(.92);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes typingDot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+@keyframes wave{0%,100%{height:8px}50%{height:24px}}
+@keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+.sidebar{width:265px;background:#0a0e22;border-right:1px solid #1e2a55;padding:16px;display:flex;flex-direction:column;animation:slideLeft .5s;overflow-y:auto}
+.logo-box{display:flex;align-items:center;gap:11px;margin-bottom:14px;cursor:pointer}
+.logo-box svg{width:46px;height:46px;animation:floatY 3s infinite}
+.logo-text{font-size:34px;font-weight:800;background:linear-gradient(90deg,#5ea0ff,#c07bff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.logo-sub{font-size:11px;color:#8a93b8}
+.new-chat{background:linear-gradient(90deg,#4a7dff,#a855f7);border:none;color:#fff;padding:11px;border-radius:12px;font-weight:700;cursor:pointer}
+.new-chat:active{transform:scale(.96)}
+.nav-label{font-size:11px;letter-spacing:1px;color:#6b76a3;margin:16px 0 8px}
+.nav-item{padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px;color:#aab3d6;display:flex;gap:10px;align-items:center;transition:.2s}
+.nav-item:hover{transform:translateX(4px);background:#1a2348;color:#fff}
+.nav-item.active{background:#1a2348;color:#fff;border-left:3px solid #a07bff}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{padding:14px 18px;border-bottom:1px solid #1e2a55;display:flex;align-items:center;gap:12px}
+.back-btn{display:none;background:#1a2348;border:1px solid #2a3566;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;font-size:14px;animation:pop .3s;white-space:nowrap}
+.back-btn.show{display:block}
+.top-title{flex:1;min-width:0}.top-title b{font-size:17px}.top-title span{font-size:12px;color:#8a93b8}
+.wave{display:flex;gap:3px;align-items:center;height:22px}.wave i{width:4px;background:linear-gradient(#5ea0ff,#a07bff);border-radius:4px;animation:wave 1s infinite}
+.content{flex:1;overflow-y:auto;padding:20px;scroll-behavior:smooth}
+.section{display:none;animation:fadeUp .4s}.section.active{display:block}
+.hero{text-align:center;margin-top:6px}.hero svg{width:82px;height:82px;animation:floatY 3s infinite}.hero h1{font-size:48px;background:linear-gradient(90deg,#5ea0ff,#c07bff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{color:#8a93b8;margin-top:8px}
+.slider-wrap{position:relative;margin-top:18px}
+.slider-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
+.slider-title b{font-size:16px}.slider-title span{font-size:12px;color:#8a93b8}
+.slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 14px;scrollbar-width:none}
+.slider::-webkit-scrollbar{display:none}
+.slide-card{min-width:200px;max-width:200px;scroll-snap-align:start;background:#131a3a;border:1px solid #1e2a55;padding:18px;border-radius:18px;cursor:pointer;transition:.25s;flex-shrink:0}
+.slide-card:hover{transform:translateY(-6px) scale(1.03);border-color:#5ea0ff;box-shadow:0 12px 25px rgba(0,0,0,.5)}
+.slide-card .emoji{font-size:32px}.slide-card b{font-size:15px;display:block;margin-top:10px}.slide-card p{font-size:12px;color:#8a93b8;margin-top:6px;line-height:1.5}
+.slide-card.hot{border-color:#a07bff;background:linear-gradient(145deg,#1a2348,#2a1a4a)}
+.slide-arrow{width:36px;height:36px;border-radius:50%;background:#1a2348;border:1px solid #2a3566;color:#fff;cursor:pointer;font-size:18px}
+.slide-arrow:hover{background:#4a7dff}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:2px}.dots i{width:8px;height:8px;border-radius:50%;background:#2a3566;transition:.2s;cursor:pointer}.dots i.active{width:22px;border-radius:10px;background:linear-gradient(90deg,#5ea0ff,#a07bff)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px}
+.card{background:#131a3a;border:1px solid #1e2a55;padding:16px;border-radius:14px;cursor:pointer;transition:.25s;animation:pop .4s}
+.card:hover{transform:translateY(-5px);border-color:#5ea0ff}
+.card b{font-size:14px}.card p{font-size:12px;color:#8a93b8;margin-top:6px}
+.box{background:#131a3a;border:1px solid #1e2a55;border-radius:14px;padding:16px;margin-top:14px;animation:fadeUp .4s}
+.box h3{margin-bottom:8px}.box p{font-size:14px;color:#aab3d6;line-height:1.6}
+.btn{background:linear-gradient(90deg,#4a7dff,#a855f7);border:none;color:#fff;padding:11px 18px;border-radius:12px;font-weight:700;cursor:pointer}
+.btn:active{transform:scale(.96)}.btn2{background:#1a2348;border:1px solid #2a3566;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer}
+input,select,textarea{width:100%;background:#0b1026;border:1px solid #2a3566;border-radius:12px;padding:12px;color:#fff;outline:none;margin-top:8px;font-size:14px}
+input:focus,textarea:focus{border-color:#a07bff}
+.chat-box{max-width:760px;margin:0 auto}
+.msg{display:flex;gap:10px;margin-bottom:14px;animation:fadeUp .3s}.msg.user{flex-direction:row-reverse}
+.bubble{max-width:78%;padding:12px 15px;border-radius:16px;font-size:14px;line-height:1.5;word-break:break-word}.msg.user .bubble{background:linear-gradient(90deg,#4a7dff,#a855f7)}.msg.ai .bubble{background:#161e42}
+.avatar{width:36px;height:36px;min-width:36px;background:linear-gradient(90deg,#5ea0ff,#a07bff);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.typing{display:flex;gap:5px}.typing span{width:8px;height:8px;background:#a07bff;border-radius:50%;animation:typingDot 1s infinite}.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+.skeleton{height:13px;border-radius:8px;background:linear-gradient(90deg,#1a2348 25%,#2a3566 50%,#1a2348 75%);background-size:200px 100%;animation:shimmer 1.2s infinite;margin-bottom:8px}
+.input-row{display:flex;gap:10px;max-width:760px;margin:16px auto 0}.input-row input{margin:0}.input-row button{width:48px;flex-shrink:0;background:linear-gradient(90deg,#4a7dff,#a855f7);border:none;color:#fff;border-radius:12px;font-size:20px;cursor:pointer}
+.bottom-nav{display:none}
+@media(max-width:760px){.sidebar{display:none}.bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#0a0e22;border-top:1px solid #1e2a55;justify-content:space-around;padding:10px;z-index:10}.bottom-nav button{background:none;border:none;color:#8a93b8;font-size:12px;cursor:pointer}.bottom-nav button.active{color:#fff;font-weight:700}.content{padding-bottom:80px}.hero h1{font-size:36px}.slide-card{min-width:170px;max-width:170px}.back-btn{font-size:12px;padding:7px 10px}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<div class="logo-box" onclick="go('home')"><svg viewBox="0 0 100 100" fill="none"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5ea0ff"/><stop offset="100%" stop-color="#c07bff"/></linearGradient></defs><path d="M50 5 L88 27 L88 73 L50 95 L12 73 L12 27 Z" stroke="url(#g)" stroke-width="7" stroke-linejoin="round"/><path d="M12 27 L50 95 L88 27 M12 73 L50 5 L88 73" stroke="url(#g)" stroke-width="5"/></svg><div><div class="logo-text">RenAi</div><div class="logo-sub">One AI, Every Language</div></div></div>
+<button class="new-chat" onclick="go('chat')">+ New Chat</button>
+<div class="nav-label">MAIN</div>
+<div class="nav-item active" data-nav="home" onclick="go('home')">🏠 Home</div>
+<div class="nav-item" data-nav="chat" onclick="go('chat')">💬 AI Chat</div>
+<div class="nav-item" data-nav="projects" onclick="go('projects')">📁 Projects</div>
+<div class="nav-item" data-nav="history" onclick="go('history')">🕘 Chat History</div>
+<div class="nav-item" data-nav="explore" onclick="go('explore')">🔍 Explore AI</div>
+<div class="nav-label">AI STUDIOS</div>
+<div class="nav-item" data-nav="image" onclick="go('image')">🎨 Image Studio</div>
+<div class="nav-item" data-nav="video" onclick="go('video')">🎬 Video Studio</div>
+<div class="nav-item" data-nav="voice" onclick="go('voice')">🎙️ Voice Studio</div>
+<div class="nav-item" data-nav="research" onclick="go('research')">🔬 Research</div>
+<div class="nav-item" data-nav="coding" onclick="go('coding')">💻 Coding</div>
+<div class="nav-item" data-nav="documents" onclick="go('documents')">📄 Documents</div>
+<div class="nav-item" data-nav="data" onclick="go('data')">📊 Data Analysis</div>
+<div class="nav-item" data-nav="study" onclick="go('study')">📚 Study Studio</div>
+<div class="nav-item" data-nav="writing" onclick="go('writing')">✍️ Writing</div>
+<div class="nav-item" data-nav="translate" onclick="go('translate')">🌍 Translation</div>
+<div class="nav-item" data-nav="math" onclick="go('math')">🧮 Math</div>
+<div class="nav-label">ACCOUNT</div>
+<div class="nav-item" data-nav="profile" onclick="go('profile')">👤 Profile</div>
+<div class="nav-item" data-nav="files" onclick="go('files')">📂 My Files</div>
+<div class="nav-item" data-nav="notif" onclick="go('notif')">🔔 Notifications</div>
+<div class="nav-item" data-nav="memory" onclick="go('memory')">🧠 Memory</div>
+<div class="nav-item" data-nav="agents" onclick="go('agents')">🤖 AI Agents</div>
+<div class="nav-item" data-nav="settings" onclick="go('settings')">⚙️ Settings</div>
+<div class="nav-item" data-nav="plans" onclick="go('plans')">💎 Plans & Usage</div>
+<div class="nav-item" data-nav="help" onclick="go('help')">❓ Help</div>
+<div class="nav-item" data-nav="admin" onclick="go('admin')">🛡️ Admin</div>
+<div class="nav-item" data-nav="developer" onclick="go('developer')">🧑‍💻 Developer</div>
 </div>
 
 <div class="main">
-<div class="top"><button class="topbtn" onclick="document.getElementById('side').classList.toggle('open')">Menu</button><div><span id="topName">Hi, Guest</span> <button class="topbtn" onclick="show('profile')">Profile</button></div></div>
+<div class="topbar"><button class="back-btn" id="backBtn" onclick="goBack()">← Back</button><div class="top-title"><b id="topTitle">RenAi Home</b><br><span id="topSub">Online • Hindi + English + Hinglish</span></div><div class="wave"><i style="height:8px"></i><i style="height:18px"></i><i style="height:10px"></i><i style="height:20px"></i><i style="height:9px"></i></div><div style="background:#1a2348;padding:7px 12px;border-radius:20px;font-size:12px;white-space:nowrap">✦ AI Ready</div></div>
+<div class="content" id="content">
 
-<div id="home" class="sec">
-<div class="card"><h1>Hello, Welcome to <span style="color:#a855f7">RenAi</span></h1><p style="color:#aaa;margin:8px 0">One AI, Every Language, Whole World. Chat, Create Images, Videos, Code, Research - All in One Place.</p><div><span class="pill active" onclick="show('chat')">Start Chat</span><span class="pill" onclick="show('img')">Create Image</span><span class="pill" onclick="show('coding')">Write Code</span><span class="pill" onclick="show('plans')">Go Plus</span></div></div>
-<div class="card"><h3>Explore AI Studios</h3><div class="grid">
-<div class="card studio" onclick="show('img')"><b>Image</b><br>Image Studio<br><small style="color:#888">Text to Image</small></div>
-<div class="card studio" onclick="show('video')"><b>Video</b><br>Video Studio<br><small style="color:#888">Text to Video</small></div>
-<div class="card studio" onclick="show('voice')"><b>Voice</b><br>Voice Studio<br><small style="color:#888">Voice Chat, TTS</small></div>
-<div class="card studio" onclick="show('coding')"><b>Code</b><br>Coding Studio<br><small style="color:#888">Build Websites</small></div>
-<div class="card studio" onclick="show('research')"><b>Search</b><br>Research Studio<br><small style="color:#888">Deep Research</small></div>
-<div class="card studio" onclick="show('study')"><b>Study</b><br>Study Studio<br><small style="color:#888">AI Tutor, Quiz</small></div>
-</div><button class="btn" onclick="show('explore')">View All 12 Studios</button></div>
-<div class="card"><h3>Recent Chats</h3><div id="recentList"><p style="color:#888;font-size:13px">No chats yet. Start your first chat!</p></div></div>
+<div class="section active" id="sec-home">
+<div class="hero"><svg viewBox="0 0 100 100" fill="none"><path d="M50 5 L88 27 L88 73 L50 95 L12 73 L12 27 Z" stroke="#a07bff" stroke-width="7" stroke-linejoin="round"/><path d="M12 27 L50 95 L88 27 M12 73 L50 5 L88 73" stroke="#5ea0ff" stroke-width="5"/></svg><h1>RenAi</h1><p>Namaste! Ek AI, Har Bhasha. Cards ko swipe karo, slide honge!</p><br><button class="btn" onclick="go('chat')">💬 Chat Shuru Karo →</button> <button class="btn2" onclick="go('explore')">Explore AI</button></div>
+
+<div class="slider-wrap"><div class="slider-title"><b>🔥 AI Studios - Slide Karo →</b><div><button class="slide-arrow" onclick="slide('slider1',-1)">‹</button> <button class="slide-arrow" onclick="slide('slider1',1)">›</button></div></div>
+<div class="slider" id="slider1">
+<div class="slide-card hot" onclick="go('chat')"><div class="emoji">💬</div><b>AI Chat</b><p>Normal chat, Hinglish me baat karo. Sabse zyada use hota hai.</p></div>
+<div class="slide-card" onclick="go('image')"><div class="emoji">🎨</div><b>Image Studio</b><p>Text likho, image banao. Cartoon, Real, 3D sab.</p></div>
+<div class="slide-card" onclick="go('video')"><div class="emoji">🎬</div><b>Video Studio</b><p>Text se video, storyboard, scene builder.</p></div>
+<div class="slide-card" onclick="go('voice')"><div class="emoji">🎙️</div><b>Voice Studio</b><p>Voice chat, Text to Voice, Speech to Text.</p></div>
+<div class="slide-card" onclick="go('coding')"><div class="emoji">💻</div><b>Coding Studio</b><p>Website, App, Debug, Code samjhao.</p></div>
+<div class="slide-card" onclick="go('study')"><div class="emoji">📚</div><b>Study Studio</b><p>Tutor, Notes, Quiz, Exam taiyari.</p></div>
+<div class="slide-card" onclick="go('writing')"><div class="emoji">✍️</div><b>Writing Studio</b><p>Article, Email, Story, Script likho.</p></div>
+<div class="slide-card" onclick="go('translate')"><div class="emoji">🌍</div><b>Translation</b><p>Hindi → English, har bhasha me.</p></div>
+</div><div class="dots" id="dots1"><i class="active" onclick="dotGo('slider1',0)"></i><i onclick="dotGo('slider1',1)"></i><i onclick="dotGo('slider1',2)"></i><i onclick="dotGo('slider1',3)"></i></div></div>
+
+<div class="slider-wrap"><div class="slider-title"><b>✨ Aaj Kya Karna Hai?</b><div><button class="slide-arrow" onclick="slide('slider2',-1)">‹</button> <button class="slide-arrow" onclick="slide('slider2',1)">›</button></div></div>
+<div class="slider" id="slider2">
+<div class="slide-card" onclick="go('study')"><div class="emoji">📖</div><b>Padhai Karni Hai</b><p>Notes + Quiz + Tutor - 2 ghante me ready.</p></div>
+<div class="slide-card" onclick="go('writing')"><div class="emoji">💼</div><b>Business Idea</b><p>Naya idea + pura plan, Seoni Malwa ke liye.</p></div>
+<div class="slide-card" onclick="go('translate')"><div class="emoji">🗣️</div><b>English Sikhna Hai</b><p>Roz 5 shabd, roz thoda English.</p></div>
+<div class="slide-card" onclick="go('image')"><div class="emoji">🎭</div><b>Masti Karni Hai</b><p>Kahani + Image + Masti wala mood.</p></div>
+<div class="slide-card" onclick="go('research')"><div class="emoji">🔬</div><b>Research Karna Hai</b><p>Deep research + Sources ke saath.</p></div>
+</div><div class="dots" id="dots2"><i class="active" onclick="dotGo('slider2',0)"></i><i onclick="dotGo('slider2',1)"></i><i onclick="dotGo('slider2',2)"></i></div></div>
+
+<div class="box"><h3>💡 Tip</h3><p>Cards ko <b>ungli se left-right swipe</b> karo, ya <b>‹ ›</b> dabao. Ye apne aap bhi slide honge, par jab tu haath lagayega toh ruk jayenge!</p></div>
 </div>
 
-<div id="chat" class="sec hidden">
-<div class="card"><h2>RenAi Chat</h2><p style="color:#888;font-size:13px">Demo AI - Simulated Response</p>
-<div style="display:flex;gap:8px;margin:10px 0"><button class="btn" onclick="newChat()">+ New Chat</button><input id="searchChat" placeholder="Search chats..." style="margin:0"></div>
-<div class="chatbox" id="chatBox"><div class="msg"><b>RenAi:</b> Hello! I am RenAi. Ask me anything in any language!</div></div>
-<p id="typing" class="typing hidden">RenAi is thinking...</p>
-<div style="display:flex;gap:8px;margin-top:10px"><input id="q" placeholder="Ask anything..."><button class="btn" style="width:90px" onclick="ask()">Send</button></div>
-<div style="margin-top:10px"><button class="btn2 btn" onclick="regenerate()">Regenerate</button> <button class="btn2 btn" onclick="copyLast()">Copy</button> <button class="btn2 btn" onclick="exportChat()">Export</button> <button class="btn2 btn" onclick="attachFile()">Attach</button> <button class="btn2 btn" onclick="voiceInput()">Voice</button></div>
-</div></div>
-
-<div id="projects" class="sec hidden"><div class="card"><h2>Projects</h2><input id="projName" placeholder="Project Name e.g. My Website"><textarea id="projInst" placeholder="Project Instructions..."></textarea><button class="btn" onclick="addProject()">+ Create Project</button><div id="projList"></div></div></div>
-<div id="history" class="sec hidden"><div class="card"><h2>Chat History</h2><p style="color:#888;font-size:13px">Today / Yesterday / Previous 7 Days</p><div id="histList"></div><button class="btn btn2" onclick="clearHistory()">Clear All History</button></div></div>
-<div id="explore" class="sec hidden"><div class="card"><h2>Explore AI - All Studios</h2><div class="grid" id="exploreGrid"></div></div></div>
-
-<div id="img" class="sec hidden"><div class="card"><h2>Image Studio</h2><input id="imgP" placeholder="Describe image e.g. A cute cat in space"><select id="imgRatio"><option>1:1 Square</option><option>16:9 Wide</option><option>9:16 Portrait</option></select><select id="imgStyle"><option>Realistic</option><option>Anime</option><option>3D</option><option>Cinematic</option></select><button class="btn" onclick="genImg()">Generate Image (Demo)</button><div id="imgOut"></div><p style="color:#888;font-size:12px;margin-top:8px">History: Saved in this browser - Demo Workflow</p></div></div>
-<div id="video" class="sec hidden"><div class="card"><h2>Video Studio</h2><input placeholder="Text to Video prompt..."><input placeholder="Image to Video - Upload image (Demo)"><button class="btn" onclick="demoGen('Video')">Generate Video (Demo)</button><div class="card">Storyboard: Scene 1 - Scene 2 - Scene 3</div></div></div>
-<div id="voice" class="sec hidden"><div class="card"><h2>Voice Studio</h2><button class="btn" onclick="voiceInput()">Start Voice Chat</button><div style="font-size:28px;margin:12px 0">Voice Waveform Animation</div><select><option>Voice: Aria - Female</option><option>Voice: Arjun - Male</option><option>Voice: Sara - Female</option></select><input placeholder="Text to Speech..."><button class="btn btn2" onclick="demoGen('Audio')">Convert to Speech (Demo)</button></div></div>
-<div id="research" class="sec hidden"><div class="card"><h2>Research Studio</h2><input id="resQ" placeholder="Research topic..."><button class="btn" onclick="doResearch()">Deep Research</button><div id="resOut"></div></div></div>
-<div id="coding" class="sec hidden"><div class="card"><h2>Coding Studio</h2><input id="codeQ" placeholder="What to build? e.g. Portfolio Website"><button class="btn" onclick="doCode()">Generate Code (Demo)</button><textarea id="codeOut" rows="8" placeholder="Your code will appear here..."></textarea><button class="btn btn2" onclick="exportChat()">Export Code</button></div></div>
-<div id="docs" class="sec hidden"><div class="card"><h2>Documents Studio</h2><button class="btn" onclick="attachFile()">Upload PDF / Word / Excel (Demo)</button><button class="btn btn2" onclick="demoGen('Document Summary')">Summarize Document</button><button class="btn btn2" onclick="demoGen('Document')">Generate Document</button></div></div>
-<div id="data" class="sec hidden"><div class="card"><h2>Data Analysis Studio</h2><button class="btn" onclick="attachFile()">Upload CSV / Excel (Demo)</button><div style="background:#0f0f1a;padding:15px;border-radius:10px;margin:10px 0">Chart Preview<br>Sales +24% (Demo)</div><button class="btn" onclick="demoGen('Data Report')">Generate Report</button></div></div>
-<div id="study" class="sec hidden"><div class="card"><h2>Study Studio - AI Tutor</h2><input placeholder="Subject e.g. Maths, Science"><button class="btn" onclick="demoGen('Quiz')">Generate Quiz</button><button class="btn btn2" onclick="demoGen('Notes')">Generate Notes</button><div id="studyOut"></div></div></div>
-<div id="writing" class="sec hidden"><div class="card"><h2>Writing Studio</h2><select id="writeType"><option>Article</option><option>Email</option><option>Social Media Post</option><option>Script</option><option>Story</option></select><input id="writeTopic" placeholder="Topic..."><button class="btn" onclick="doWrite()">Write (Demo)</button><div id="writeOut"></div></div></div>
-<div id="translate" class="sec hidden"><div class="card"><h2>Translation Studio</h2><select id="fromLang"><option>English</option><option>Spanish</option><option>French</option></select><select id="toLang"><option>Spanish</option><option>English</option><option>French</option><option>Japanese</option></select><input id="transText" placeholder="Enter text to translate..."><button class="btn" onclick="doTranslate()">Translate</button><div id="transOut"></div></div></div>
-<div id="math" class="sec hidden"><div class="card"><h2>Math Studio</h2><input id="mathQ" placeholder="e.g. 12 x 15 + 20"><button class="btn" onclick="doMath()">Solve Step-by-Step</button><div id="mathOut"></div></div></div>
-<div id="agents" class="sec hidden"><div class="card"><h2>AI Agents</h2><div class="grid"><div class="card">Research Agent<br><small>Auto Research</small></div><div class="card">Coding Agent<br><small>Build Apps</small></div><div class="card">Writing Agent<br><small>Write Content</small></div><div class="card">Data Agent<br><small>Analyze Data</small></div></div><p style="color:#888;font-size:12px">Multi-Agent Collaboration - Demo Preview</p></div></div>
-
-<div id="profile" class="sec hidden"><div class="card" style="text-align:center"><div style="width:70px;height:70px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto" id="dp">R</div><h2 id="uname">Guest User</h2><p id="uemail" style="color:#aaa">guest@renai.com</p><input id="editName" placeholder="Edit Name"><button class="btn" onclick="saveProfile()">Save Profile</button><button class="btn btn2" onclick="logout()">Logout</button></div></div>
-<div id="files" class="sec hidden"><div class="card"><h2>My Files</h2><button class="btn" onclick="attachFile()">+ Upload File (Demo)</button><div id="fileList"><p style="color:#888">No files yet</p></div></div></div>
-<div id="notif" class="sec hidden"><div class="card"><h2>Notifications</h2><div class="msg">Welcome to RenAi!</div><div class="msg">Plus Plan Offer - 299/month (Demo)</div><div class="msg">New Studio Added - Video Studio</div></div></div>
-<div id="memory" class="sec hidden"><div class="card"><h2>Memory</h2><p style="color:#888;font-size:13px">RenAi remembers your preferences.</p><div class="msg">User likes: English, Coding</div><button class="btn btn2" onclick="clearHistory()">Clear Memory</button></div></div>
-<div id="plans" class="sec hidden"><div class="card"><h2>Plans & Usage</h2><div class="grid"><div class="card"><b>Free</b><br>Rs 0<br>Basic Chat</div><div class="card" style="border-color:#a855f7"><b>Plus</b><br>Rs 299/mo <span class="badge">POPULAR</span><br>All Studios</div><div class="card"><b>Pro</b><br>Rs 799/mo<br>Priority + Agents</div><div class="card"><b>Ultra</b><br>Rs 1,499/mo<br>Everything Unlimited</div></div><p style="color:#888;font-size:12px">Prices are proposals only. No real payment. Demo Payment Gateway.</p><button class="btn" onclick="demoGen('Upgrade to Plus')">Upgrade to Plus (Demo)</button><div class="card">Usage: Chats 12/100 - Images 3/20 - <progress value="20" max="100" style="width:100%"></progress></div></div></div>
-<div id="settings" class="sec hidden"><div class="card"><h2>Settings</h2><label>Language</label><select id="langSel"><option>English</option></select><label>Theme</label><select onchange="changeTheme(this.value)"><option>Dark Mode</option><option>Light Mode</option></select><label>Account</label><button class="btn btn2" onclick="show('profile')">Profile Settings</button><button class="btn btn2" onclick="alert('Privacy Settings - Demo')">Privacy Settings</button><button class="btn btn2" onclick="alert('Security - Active Sessions: 1 Device - Demo')">Security & Sessions</button></div></div>
-<div id="help" class="sec hidden"><div class="card"><h2>Help & Support</h2><input placeholder="Search help..."><div class="msg">How to create a Project? Go to Projects - Create</div><div class="msg">How to change language? Go to Settings - Language</div><button class="btn" onclick="alert('Support Ticket Created - Demo')">Contact Support</button></div></div>
-<div id="admin" class="sec hidden"><div class="card"><h2>Admin Dashboard - RenAi</h2><input type="password" id="apass" placeholder="Admin Password"><button class="btn" onclick="unlockAdmin()">Unlock Admin</button><div id="adminPanel" class="hidden"><div class="grid"><div class="card">Users<br><b>1,248</b></div><div class="card">Revenue (Preview)<br><b>Rs 84,500</b></div><div class="card">Chats Today<br><b>3,420</b></div><div class="card">Safety Alerts<br><b>0</b></div></div><div class="card">User Management - Subscription - AI Tools - Model Management - Usage Analytics - Feedback - Audit Logs - All Demo Preview</div></div></div></div>
-<div id="dev" class="sec hidden"><div class="card"><h2>Developer Platform</h2><p style="color:#888">API Documentation - SDK - Model Directory</p><div class="card">API Key: <code>renai_demo_xxxxxxxx</code> (Demo Only - Not Real)</div><button class="btn btn2" onclick="alert('API Docs - Demo')">View API Docs</button><button class="btn btn2" onclick="alert('Model: RenAi-1 Demo')">Model Directory</button></div></div>
-
-<div id="loginOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:99;padding:15px"><div class="card" style="max-width:380px;width:100%;text-align:center"><h2>Welcome to RenAi</h2><p style="color:#aaa;font-size:13px">One AI, Every Language, Whole World</p><button class="btn btn2" onclick="gmailLogin()">Continue with Gmail (Demo)</button><p style="font-size:11px;color:#666;margin:8px">OR</p><input id="lname" placeholder="Your Name"><input id="lemail" placeholder="Email"><input id="lpass" type="password" placeholder="Password"><input id="lotp" placeholder="Demo OTP (Any 4 digits - Optional)"><button class="btn" onclick="doLogin()">Continue to RenAi</button><p style="font-size:11px;color:#888;margin-top:8px">Demo Login - No Real Auth - Forgot Password? (Demo)</p></div></div>
+<div class="section" id="sec-chat"><div class="chat-box"><div id="chatArea"><div class="msg ai"><div class="avatar">R</div><div class="bubble">Namaste bhai! Main RenAi hu. Hindi, English, Hinglish - kisi me bhi pucho.</div></div></div><div class="input-row"><input id="inp" placeholder="Kuch pucho..." onkeydown="if(event.key==='Enter'){event.preventDefault();sendMsg();}"><button onclick="sendMsg()">➤</button></div><p style="text-align:center;font-size:12px;color:#8a93b8;margin-top:8px">Demo Mode • Real AI nahi, demo jawab hai</p></div></div>
+<div class="section" id="sec-projects"><h2>📁 Projects</h2><div class="box"><input placeholder="Project ka naam"><button class="btn" style="margin-top:10px" onclick="toast('Project ban gaya! (Demo)')">+ Create Project</button></div><div class="box"><p>• Mera Business • Padhai Notes • English Sikho</p></div></div>
+<div class="section" id="sec-history"><h2>🕘 Chat History</h2><div class="box"><p onclick="go('chat')">👋 Namaste → Kholo</p><p onclick="go('chat')">📚 Padhai → Kholo</p><p onclick="go('chat')">💼 Business → Kholo</p></div></div>
+<div class="section" id="sec-explore"><h2>🔍 Explore AI - Sliding Cards</h2><div class="slider-wrap"><div class="slider" id="slider3"><div class="slide-card" onclick="go('image')"><div class="emoji">🎨</div><b>Image</b><p>Try karo</p></div><div class="slide-card" onclick="go('video')"><div class="emoji">🎬</div><b>Video</b><p>Try karo</p></div><div class="slide-card" onclick="go('voice')"><div class="emoji">🎙️</div><b>Voice</b><p>Try karo</p></div><div class="slide-card" onclick="go('coding')"><div class="emoji">💻</div><b>Coding</b><p>Try karo</p></div><div class="slide-card" onclick="go('agents')"><div class="emoji">🤖</div><b>Agents</b><p>Try karo</p></div></div></div></div>
+<div class="section" id="sec-image"><h2>🎨 Image Studio</h2><div class="box"><textarea placeholder="Image kaisa chahiye?"></textarea><button class="btn" style="margin-top:10px" onclick="toast('Image ban rahi hai... (Demo)')">✨ Generate Image</button></div></div>
+<div class="section" id="sec-video"><h2>🎬 Video Studio</h2><div class="box"><textarea placeholder="Video idea..."></textarea><button class="btn" style="margin-top:10px" onclick="toast('Storyboard ban gaya! (Demo)')">🎬 Storyboard Banao</button></div></div>
+<div class="section" id="sec-voice"><h2>🎙️ Voice Studio</h2><div class="box"><div class="wave" style="height:40px"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="btn" style="margin-top:10px" onclick="toast('Voice sun raha hu... (Demo)')">🎤 Bolna Shuru Karo</button></div></div>
+<div class="section" id="sec-research"><h2>🔬 Research Studio</h2><div class="box"><input placeholder="Topic?"><button class="btn" style="margin-top:10px" onclick="toast('Deep Research shuru! (Demo)')">🔍 Deep Research</button></div></div>
+<div class="section" id="sec-coding"><h2>💻 Coding Studio</h2><div class="box"><textarea placeholder="Kya website banana hai?"></textarea><button class="btn" style="margin-top:10px" onclick="toast('Code ban raha hai! (Demo)')">💻 Code Banao</button></div></div>
+<div class="section" id="sec-documents"><h2>📄 Documents</h2><div class="box"><button class="btn" onclick="toast('File upload! (Demo)')">📎 File Upload</button></div></div>
+<div class="section" id="sec-data"><h2>📊 Data Analysis</h2><div class="box"><button class="btn" onclick="toast('Chart ban gaya! (Demo)')">📊 Chart Banao</button><p style="margin-top:10px">📈 Sales: Jan 10k, Feb 15k, Mar 22k</p></div></div>
+<div class="section" id="sec-study"><h2>📚 Study Studio</h2><div class="box"><button class="btn" onclick="toast('Quiz ban gaya! (Demo)')">📝 Quiz Banao</button> <button class="btn2" onclick="toast('Notes ban gaye! (Demo)')">📓 Notes</button></div></div>
+<div class="section" id="sec-writing"><h2>✍️ Writing Studio</h2><div class="box"><textarea placeholder="Kya likhna hai?"></textarea><button class="btn" style="margin-top:10px" onclick="toast('Likh diya! (Demo)')">✍️ Likho</button></div></div>
+<div class="section" id="sec-translate"><h2>🌍 Translation</h2><div class="box"><textarea placeholder="Hindi me likho..."></textarea><button class="btn" style="margin-top:10px" onclick="toast('Translate ho gaya! (Demo)')">🌍 Translate Karo</button></div></div>
+<div class="section" id="sec-math"><h2>🧮 Math Studio</h2><div class="box"><input placeholder="Jaise - 25 x 4 + 10"><button class="btn" style="margin-top:10px" onclick="toast('110 - Step: 25x4=100, 100+10=110')">🧮 Solve Karo</button></div></div>
+<div class="section" id="sec-profile"><h2>👤 Profile</h2><div class="box"><div style="display:flex;gap:14px;align-items:center"><div class="avatar" style="width:60px;height:60px;font-size:22px">R</div><div><b style="font-size:20px">Ren User</b><p style="color:#8a93b8">Seoni Malwa, MP • Free Plan</p></div></div><input placeholder="Naam badlo"><button class="btn" style="margin-top:10px" onclick="toast('Profile save! (Demo)')">Save Karo</button></div></div>
+<div class="section" id="sec-files"><h2>📂 My Files</h2><div class="box"><p>📄 notes.pdf • 🖼️ photo.png • 📊 data.csv</p><button class="btn" onclick="toast('File upload! (Demo)')">+ Upload</button></div></div>
+<div class="section" id="sec-notif"><h2>🔔 Notifications</h2><div class="box"><p>✨ Voice Studio aa gaya!<br>💎 Plus pe 20% off (Demo)<br>📚 Quiz ready hai!</p></div></div>
+<div class="section" id="sec-memory"><h2>🧠 Memory</h2><div class="box"><p>RenAi ko yaad hai: Hindi + Hinglish pasand hai, Seoni Malwa se ho, Business me interest hai.</p><button class="btn2" onclick="toast('Memory clear! (Demo)')">Clear Karo</button></div></div>
+<div class="section" id="sec-agents"><h2>🤖 AI Agents</h2><div class="grid"><div class="card"><b>📚 Study Agent</b><p>Roz padhayega</p></div><div class="card"><b>💼 Business Agent</b><p>Idea + Plan</p></div><div class="card"><b>🌍 Language Agent</b><p>English sikhayega</p></div></div></div>
+<div class="section" id="sec-settings"><h2>⚙️ Settings</h2><div class="box"><p>Dark Mode ON</p><select style="margin-top:10px"><option>Hinglish</option><option>Hindi</option><option>English</option></select><br><br><button class="btn" onclick="toast('Settings save!')">Save</button></div></div>
+<div class="section" id="sec-plans"><h2>💎 Plans</h2><div class="grid"><div class="card"><b>Free ₹0</b><p>Daily 20 chats</p></div><div class="card"><b>Plus ₹299 ⭐</b><p>Unlimited + Image</p></div><div class="card"><b>Pro ₹799</b><p>Video + Voice</p></div><div class="card"><b>Ultra ₹1499</b><p>Sab kuch + Agents</p></div></div><div class="box"><p>Prices sirf proposal hai, real payment nahi hai.</p><button class="btn" onclick="toast('Demo Payment khulega! (Demo)')">Upgrade Karo</button></div></div>
+<div class="section" id="sec-help"><h2>❓ Help</h2><div class="box"><p>1. Chat me pucho 2. Studio me jao 3. Back se wapas aao<br>Cards ko swipe karo, slide honge!</p><button class="btn" onclick="go('chat')">💬 Chat Karo</button></div></div>
+<div class="section" id="sec-admin"><h2>🛡️ Admin (Demo)</h2><div class="box"><p>Users: 1250 (Demo) • Revenue: ₹45k (Demo Preview)</p></div></div>
+<div class="section" id="sec-developer"><h2>🧑‍💻 Developer (Demo)</h2><div class="box"><p>API Key: renai_demo_****1234 (Demo)</p><button class="btn" onclick="toast('Copy ho gayi! (Demo)')">Copy Key</button></div></div>
 
 </div>
+</div>
+<div class="bottom-nav"><button data-bottom="home" class="active" onclick="go('home')">🏠<br>Home</button><button data-bottom="chat" onclick="go('chat')">💬<br>Chat</button><button data-bottom="explore" onclick="go('explore')">🔍<br>Explore</button><button data-bottom="plans" onclick="go('plans')">💎<br>Plans</button><button data-bottom="profile" onclick="go('profile')">👤<br>Profile</button></div>
 <script>
-let chats=JSON.parse(localStorage.getItem('renai_chats')||'[]');let cur=localStorage.getItem('renai_name')||'';
-function show(id,btn){document.querySelectorAll('.sec').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(window.innerWidth<768)document.getElementById('side').classList.remove('open');window.scrollTo({top:0,behavior:'smooth'});}
-function doLogin(){let n=document.getElementById('lname').value||'RenAi User';localStorage.setItem('renai_name',n);document.getElementById('loginOverlay').style.display='none';document.getElementById('topName').innerText='Hi, '+n;document.getElementById('uname').innerText=n;document.getElementById('dp').innerText=n.charAt(0).toUpperCase();document.getElementById('editName').value=n;}
-function gmailLogin(){let e=prompt('Enter Gmail (Demo):');if(e){doLogin();}}
-function logout(){localStorage.removeItem('renai_name');location.reload();}
-if(cur){document.getElementById('loginOverlay').style.display='none';document.getElementById('topName').innerText='Hi, '+cur;document.getElementById('uname').innerText=cur;document.getElementById('dp').innerText=cur.charAt(0).toUpperCase();}
-function ask(){let q=document.getElementById('q').value.trim();if(!q)return;let b=document.getElementById('chatBox');b.innerHTML+=`<div class="msg"><b>You:</b> ${q}</div>`;document.getElementById('q').value='';document.getElementById('typing').classList.remove('hidden');setTimeout(()=>{document.getElementById('typing').classList.add('hidden');b.innerHTML+=`<div class="msg"><b>RenAi:</b> Great question about "${q}"! This is a demo response. In full version, RenAi will give detailed answer in your selected language.</div>`;chats.push({q:q,time:new Date().toLocaleString()});localStorage.setItem('renai_chats',JSON.stringify(chats));renderHistory();},900);}
-function newChat(){document.getElementById('chatBox').innerHTML='<div class="msg"><b>RenAi:</b> New chat started! Ask me anything!</div>';}
-function regenerate(){document.getElementById('chatBox').innerHTML+='<div class="msg"><b>RenAi:</b> Here is a regenerated answer (Demo) - Even better explanation!</div>';}
-function copyLast(){alert('Copied! (Demo)');}
-function exportChat(){alert('Chat Exported! (Demo)');}
-function attachFile(){alert('File Upload - Demo Mode. Cloud storage simulated.');document.getElementById('fileList').innerHTML+='<div class="msg">demo-file.pdf - Uploaded (Demo)</div>';}
-function voiceInput(){alert('Voice Input - Demo. Speak now... (Browser Mic Demo)');}
-function renderHistory(){let h=document.getElementById('histList');let r=document.getElementById('recentList');if(!chats.length)return;h.innerHTML=chats.slice(-10).reverse().map(c=>`<div class="msg">${c.q} <br><small style="color:#888">${c.time}</small></div>`).join('');r.innerHTML=chats.slice(-3).reverse().map(c=>`<div class="msg">${c.q}</div>`).join('');}
-function clearHistory(){chats=[];localStorage.removeItem('renai_chats');renderHistory();alert('History Cleared');}
-function addProject(){let n=document.getElementById('projName').value;if(!n)return alert('Enter project name');document.getElementById('projList').innerHTML+=`<div class="msg">${n} - Created! <button onclick="alert('Project Opened - Demo')">Open</button></div>`;document.getElementById('projName').value='';}
-function genImg(){let p=document.getElementById('imgP').value||'Beautiful AI Art';document.getElementById('imgOut').innerHTML=`<div class="card" style="text-align:center"><small style="font-size:13px">Image Generated (Demo)<br>"${p}"<br>Style: ${document.getElementById('imgStyle').value} - Ratio: ${document.getElementById('imgRatio').value}</small></div>`;}
-function demoGen(t){alert(t+' Generated! (Demo Workflow)');document.getElementById('studyOut').innerHTML=`<div class="msg">${t} - Demo Content Generated!</div>`;}
-function doResearch(){let q=document.getElementById('resQ').value||'AI Future';document.getElementById('resOut').innerHTML=`<div class="msg"><b>Research Report on ${q}:</b><br>1. Introduction...<br>2. Key Findings...<br>3. Sources: [1] Demo Source, [2] Demo Source<br>Citations Included (Demo)</div>`;}
-function doCode(){let q=document.getElementById('codeQ').value||'Website';document.getElementById('codeOut').value=`// RenAi Coding Studio - Demo\n// Project: ${q}\nfunction hello(){ console.log("Hello from RenAi!"); }\n// Full code in Pro version`;}
-function doWrite(){let t=document.getElementById('writeTopic').value||'AI';document.getElementById('writeOut').innerHTML=`<div class="msg"><b>${document.getElementById('writeType').value} on ${t}:</b><br>This is a demo article written by RenAi... Grammar checked</div>`;}
-function doTranslate(){let txt=document.getElementById('transText').value||'Hello';document.getElementById('transOut').innerHTML=`<div class="msg">Translated (${document.getElementById('fromLang').value} to ${document.getElementById('toLang').value}): ${txt} - Demo Translation - Language Detected</div>`;}
-function doMath(){let q=document.getElementById('mathQ').value||'12 x 15';try{document.getElementById('mathOut').innerHTML=`<div class="msg"><b>Solution:</b><br>Step 1: ${q}<br>Step 2: Calculate...<br>Answer: ${eval(q.replace(/x/g,'*'))} (Demo Step-by-Step)</div>`;}catch(e){document.getElementById('mathOut').innerHTML='<div class="msg">Enter valid math e.g. 12*15+20</div>';}}
-function changeTheme(v){if(v.includes('Light')){document.body.style.background='#f5f5f5';document.body.style.color='#000';}else{document.body.style.background='#0a0a12';document.body.style.color='#fff';}}
-function saveProfile(){let n=document.getElementById('editName').value;localStorage.setItem('renai_name',n);document.getElementById('topName').innerText='Hi, '+n;document.getElementById('uname').innerText=n;alert('Profile Saved!');}
-function unlockAdmin(){if(document.getElementById('apass').value==='renai123'){document.getElementById('adminPanel').classList.remove('hidden');}else alert('Wrong Password! Default: renai123');}
-let studios=[['img','Image Studio','Text to Image'],['video','Video Studio','Text to Video'],['voice','Voice Studio','Voice Chat'],['research','Research Studio','Deep Research'],['coding','Coding Studio','Build Apps'],['docs','Documents Studio','PDF Tools'],['data','Data Studio','Charts & Reports'],['study','Study Studio','AI Tutor'],['writing','Writing Studio','Articles & Emails'],['translate','Translation Studio','Translate Text'],['math','Math Studio','Step Solutions'],['agents','AI Agents','Auto Agents']];
-document.getElementById('exploreGrid').innerHTML=studios.map(s=>`<div class="card studio" onclick="show('${s[0]}')">${s[1]}<br><small style="color:#888">${s[2]}</small></div>`).join('');
-renderHistory();
-</script></body></html>
+let historyStack=['home'];
+let titles={home:['RenAi Home','Online • Hindi + English + Hinglish'],chat:['RenAi Chat','AI Chat • Typing ON'],projects:['Projects','Tumhare projects'],history:['Chat History','Purani chats'],explore:['Explore AI','Sliding Cards'],image:['Image Studio','Text se Image'],video:['Video Studio','Text se Video'],voice:['Voice Studio','Voice + Waveform'],research:['Research Studio','Deep Research'],coding:['Coding Studio','Website + App'],documents:['Documents Studio','PDF + Word'],data:['Data Analysis','CSV + Charts'],study:['Study Studio','Tutor + Quiz'],writing:['Writing Studio','Article + Story'],translate:['Translation Studio','Har bhasha'],math:['Math Studio','Step-by-step'],profile:['Profile','Tumhari details'],files:['My Files','Tumhari files'],notif:['Notifications','Nayi khabar'],memory:['Memory','Kya yaad hai'],agents:['AI Agents','Auto kaam wale'],settings:['Settings','Theme + Language'],plans:['Plans & Usage','Free / Plus / Pro / Ultra'],help:['Help & Support','Madad chahiye?'],admin:['Admin Dashboard','Demo Preview'],developer:['Developer Platform','Demo API']};
+function showPage(page){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  let el=document.getElementById('sec-'+page); if(el) el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.nav===page));
+  document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.bottom===page));
+  let t=titles[page]||['RenAi','Online'];document.getElementById('topTitle').innerText=t[0];document.getElementById('topSub').innerText=t[1];
+  let back=document.getElementById('backBtn');
+  if(historyStack.length>1){back.classList.add('show');back.innerText='← Back | '+(titles[historyStack[historyStack.length-2]]?.[0]||'Home');}else back.classList.remove('show');
+  document.getElementById('content').scrollTop=0;
+}
+function go(page){if(historyStack[historyStack.length-1]!==page) historyStack.push(page); showPage(page);}
+function goBack(){if(historyStack.length>1){historyStack.pop(); showPage(historyStack[historyStack.length-1]);}}
+function toast(m){let old=document.querySelector('.toast-msg'); if(old) old.remove(); let d=document.createElement('div');d.className='toast-msg';d.innerText=m;d.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:12px 18px;border-radius:12px;font-weight:700;z-index:999;max-width:90%;text-align:center';document.body.appendChild(d);setTimeout(()=>d.remove(),2200);}
+// CARD SLIDING - FIXED
+let lastTouch=0;
+function slide(id,dir){let el=document.getElementById(id); if(!el) return; lastTouch=Date.now(); el.scrollBy({left:dir*220,behavior:'smooth'});}
+function dotGo(id,idx){let el=document.getElementById(id); if(!el) return; lastTouch=Date.now(); el.scrollTo({left:idx*220,behavior:'smooth'});}
+function updateDots(){
+  [['slider1','dots1'],['slider2','dots2']].forEach(([sid,did])=>{
+    let s=document.getElementById(sid), d=document.getElementById(did); if(!s||!d) return;
+    let idx=Math.round(s.scrollLeft/220); let dots=d.querySelectorAll('i');
+    dots.forEach((dot,i)=>dot.classList.toggle('active',i===Math.min(idx,dots.length-1)));
+  });
+}
+document.getElementById('slider1')?.addEventListener('scroll',updateDots);
+document.getElementById('slider2')?.addEventListener('scroll',updateDots);
+document.getElementById('slider1')?.addEventListener('touchstart',()=>lastTouch=Date.now());
+document.getElementById('slider2')?.addEventListener('touchstart',()=>lastTouch=Date.now());
+setInterval(()=>{if(Date.now()-lastTouch<5000) return; let s1=document.getElementById('slider1'); if(!s1) return; if(!document.getElementById('sec-home').classList.contains('active')) return; if(s1.scrollLeft+s1.clientWidth>=s1.scrollWidth-10){s1.scrollTo({left:0,behavior:'smooth'});}else{s1.scrollBy({left:220,behavior:'smooth'});}},3000);
+let isSending=false;
+function sendMsg(){
+  if(isSending) return;
+  let inp=document.getElementById('inp');let text=inp.value.trim();if(!text) return; isSending=true;
+  let area=document.getElementById('chatArea');area.innerHTML+=`<div class="msg user"><div class="avatar">Y</div><div class="bubble">${text.replace(/</g,'&lt;')}</div></div>`;inp.value='';
+  let id='t'+Date.now();area.innerHTML+=`<div class="msg ai" id="${id}"><div class="avatar">R</div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div><div class="skeleton" style="width:90%"></div><p style="font-size:12px;color:#a07bff">RenAi soch raha hai...</p></div></div>`;
+  area.scrollTop=area.scrollHeight;
+  setTimeout(()=>{document.getElementById(id)?.remove();let r="Namaste bhai! Tumne pucha: '"+text.replace(/</g,'&lt;')+"'. Main simple Hinglish me samjha dunga. Aur kya puchna hai?";let low=text.toLowerCase();if(low.includes('padhai'))r="Padhai trick: Roz 2 ghante, pehle hard topic, notes khud likho.";if(low.includes('business'))r="Business: Tiffin, Mobile Repair, Online Classes - Seoni Malwa me mast chalega.";if(low.includes('english'))r="English: 'I am learning English' = Main English seekh raha hu.";area.innerHTML+=`<div class="msg ai"><div class="avatar">R</div><div class="bubble">${r}</div></div>`;isSending=false;},1200);
+}
+</script>
+</body>
+  </html>
