@@ -1,239 +1,64 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RenAi - One AI, Every Language</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-:root{--bg:#212121;--bg2:#171717;--sidebar:#171717;--card:#2F2F2F;--hover:#2A2A2A;--border:#2F2F2F;--text:#ECECEC;--muted:#9B9B9B;--muted2:#B4B4B4;--accent:#fff;--user-bg:#2F2F2F;--ai-bg:transparent;--input-bg:#2F2F2F}
-[data-theme="light"]{--bg:#fff;--bg2:#F9F9F9;--sidebar:#F9F9F9;--card:#F0F0F0;--hover:#ECECEC;--border:#E5E5E5;--text:#171717;--muted:#6B6B6B;--muted2:#4D4D4D;--accent:#171717;--user-bg:#F0F0F0;--ai-bg:transparent;--input-bg:#F0F0F0}
-body{background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden}
-button,input,textarea,select{font-family:inherit}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
-
-/* SIDEBAR - ChatGPT jaisa */
-.sidebar{width:260px;background:var(--sidebar);padding:12px;display:flex;flex-direction:column;flex-shrink:0;z-index:20;transition:.25s}
-.sidebar.hidden{margin-left:-260px}
-.logo{display:flex;align-items:center;gap:10px;padding:8px 8px 14px;cursor:pointer}
-.logo-icon{width:32px;height:32px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
-[data-theme="light"] .logo-icon{background:#171717;color:#fff}
-.logo b{font-size:20px;letter-spacing:-.5px}
-.logo span{font-size:11px;color:var(--muted);display:block;font-weight:400}
-.new-chat{display:flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--border);color:var(--text);padding:11px 12px;border-radius:12px;cursor:pointer;font-size:14px}
-.new-chat:hover{background:var(--hover)}
-.new-chat span{margin-left:auto;width:22px;height:22px;border-radius:6px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:14px}
-.search-box{margin-top:10px;background:transparent;border:1px solid var(--border);border-radius:12px;padding:9px 12px;display:flex;gap:8px;align-items:center}
-.search-box input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:13px;min-width:0;margin:0;padding:0}
-.nav-label{font-size:12px;color:var(--muted);margin:18px 0 6px;padding:0 10px;font-weight:600}
-.nav-item,.chat-item{padding:10px 11px;border-radius:10px;cursor:pointer;font-size:14px;color:var(--text);display:flex;gap:9px;align-items:center;justify-content:space-between;white-space:nowrap;overflow:hidden}
-.nav-item:hover,.chat-item:hover{background:var(--hover)}
-.chat-item.active{background:var(--hover)}
-.chat-item span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.chat-item small{color:var(--muted);font-size:11px}
-.sidebar-bottom{margin-top:auto;padding-top:12px;border-top:1px solid var(--border)}
-.user-row{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;cursor:pointer}
-.user-row:hover{background:var(--hover)}
-.user-avatar{width:32px;height:32px;border-radius:50%;background:#10A37F;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;font-size:14px}
-
-/* MAIN */
-.main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--bg)}
-.topbar{padding:12px 16px;display:flex;align-items:center;gap:10px}
-.icon-btn{width:36px;height:36px;border-radius:50%;background:transparent;border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.icon-btn:hover{background:var(--hover)}
-.back-btn{display:none}.back-btn.show{display:flex}
-.model-wrap{flex:1;min-width:0;position:relative}
-.model-btn{background:transparent;border:none;color:var(--text);padding:8px 10px;border-radius:12px;cursor:pointer;font-weight:600;font-size:16px;display:flex;gap:6px;align-items:center}
-.model-btn:hover{background:var(--hover)}
-.model-btn span{font-size:12px;color:var(--muted);font-weight:400}
-.model-drop{display:none;position:absolute;top:44px;left:0;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:6px;width:280px;z-index:50;box-shadow:0 20px 40px rgba(0,0,0,.3)}
-.model-drop.show{display:block}
-.model-opt{padding:12px;border-radius:10px;cursor:pointer}
-.model-opt:hover{background:var(--hover)}
-.model-opt small{color:var(--muted);font-size:12px}
-
-.content{flex:1;overflow-y:auto;padding:18px}
-.section{display:none;animation:fadeUp .25s}.section.active{display:block}
-
-/* CENTER - ChatGPT Home jaisa */
-.center{max-width:740px;margin:0 auto;padding-top:60px;text-align:center}
-.center-icon{width:52px;height:52px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;margin:0 auto}
-[data-theme="light"] .center-icon{background:#171717;color:#fff}
-.center h1{font-size:32px;margin-top:16px;font-weight:600;letter-spacing:-.5px}
-.center p{color:var(--muted);margin-top:8px;line-height:1.6;font-size:15px}
-.suggest-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;text-align:left}
-.suggest{border:1px solid var(--border);padding:14px;border-radius:16px;cursor:pointer;background:transparent}
-.suggest:hover{background:var(--hover)}
-.suggest b{font-size:14px}
-.suggest p{font-size:13px;color:var(--muted);margin-top:4px}
-
-/* CHAT */
-.msg{display:flex;gap:14px;max-width:740px;margin:0 auto 22px;animation:fadeUp .25s}
-.msg.user{flex-direction:row-reverse}
-.bubble{max-width:85%;padding:12px 16px;border-radius:18px;font-size:15px;line-height:1.7;word-break:break-word;background:var(--user-bg)}
-.msg.ai .bubble{background:var(--ai-bg);padding:2px 0}
-.bubble pre{background:#000;color:#E5E7EB;padding:12px;border-radius:10px;overflow-x:auto;font-size:13px;margin:10px 0}
-[data-theme="light"] .bubble pre{background:#171717}
-.bubble code{background:rgba(0,0,0,.08);padding:2px 6px;border-radius:5px;font-size:13px}
-[data-theme="dark"] .bubble code{background:rgba(255,255,255,.12)}
-.bubble pre code{background:none;padding:0}
-.msg-actions{display:flex;gap:6px;margin-top:8px}
-.msg-actions button{background:transparent;border:none;color:var(--muted);padding:6px;cursor:pointer;font-size:14px;border-radius:8px}
-.msg-actions button:hover{background:var(--hover);color:var(--text)}
-.avatar{width:32px;height:32px;min-width:32px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
-[data-theme="light"] .avatar{background:#171717;color:#fff}
-.msg.user .avatar{background:#10A37F;color:#fff}
-.typing{display:flex;gap:5px;padding:8px 0}.typing span{width:7px;height:7px;background:var(--muted);border-radius:50%;animation:blink 1s infinite}
-
-/* INPUT - ChatGPT jaisa pill */
-#bottomBar{display:none}
-#bottomBar.show{display:block}
-.input-wrap{max-width:740px;margin:0 auto;padding:10px 16px 4px;width:100%}
-.input-box{background:var(--input-bg);border-radius:28px;padding:8px 8px 8px 16px;display:flex;gap:6px;align-items:flex-end;box-shadow:0 4px 20px rgba(0,0,0,.08)}
-.input-box textarea{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:15px;min-width:0;resize:none;max-height:120px;padding:10px 0;line-height:1.5}
-.input-box button{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:var(--text);cursor:pointer;flex-shrink:0;font-size:16px;display:flex;align-items:center;justify-content:center}
-.input-box button:hover{background:rgba(0,0,0,.08)}
-[data-theme="dark"] .input-box button:hover{background:rgba(255,255,255,.1)}
-.input-box .send{background:#fff;color:#000}
-[data-theme="light"] .input-box .send{background:#171717;color:#fff}
-.footer{padding:8px 16px 14px;text-align:center}
-.footer p{font-size:12px;color:var(--muted)}
-.footer-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:6px}
-.footer-links span{font-size:12px;color:var(--muted);cursor:pointer}
-.footer-links span:hover{color:var(--text);text-decoration:underline}
-
-/* TOOLS BOX */
-.box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-top:14px}
-.box p{color:var(--muted2);font-size:14px;line-height:1.7}
-.box h3{margin-bottom:6px}
-.btn{background:#fff;color:#000;border:none;padding:11px 18px;border-radius:22px;font-weight:600;cursor:pointer}
-[data-theme="light"] .btn{background:#171717;color:#fff}
-.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:20px;cursor:pointer}
-.btn-ghost:hover{background:var(--hover)}
-input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);outline:none;margin-top:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:14px}
-.card{background:var(--card);border:1px solid var(--border);padding:16px;border-radius:16px;cursor:pointer}
-.card:hover{background:var(--hover)}
-.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px}
-.plan-card{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:20px;position:relative}
-.plan-card.pop{border:2px solid #10A37F}
-.plan-card .badge{position:absolute;top:-10px;right:14px;background:#10A37F;color:#fff;font-size:11px;padding:4px 10px;border-radius:12px;font-weight:700}
-.plan-card .price{font-size:32px;font-weight:700;margin:10px 0 4px}
-.plan-card ul{list-style:none;margin:12px 0}
-.plan-card li{font-size:13px;color:var(--muted2);padding:5px 0}
-.toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
-.switch{width:46px;height:26px;background:var(--border);border-radius:20px;position:relative;cursor:pointer;flex-shrink:0}
-.switch::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
-.switch.on{background:#10A37F}
-.switch.on::after{left:23px}
-.faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-top:10px;overflow:hidden}
-.faq-q{padding:14px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between}
-.faq-a{display:none;padding:0 14px 14px;color:var(--muted2);font-size:14px;line-height:1.6}
-.faq-item.open .faq-a{display:block}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center;padding:16px}
-.modal.show{display:flex}
-.modal-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:440px;width:100%;animation:fadeUp .3s}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 18px;border-radius:12px;font-weight:600;z-index:999;max-width:90%;text-align:center;font-size:13px}
-@media(max-width:820px){.sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sidebar.hidden{margin-left:0;transform:translateX(-100%)}.center h1{font-size:26px}.suggest-grid{grid-template-columns:1fr}.msg .bubble{max-width:88%}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090b16" />
+  <meta name="description" content="RenAI — Beyond Intelligence. Beyond Limits." />
+  <title>RenAI — Beyond Intelligence. Beyond Limits.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="sidebar" id="sidebar">
-<div class="logo" onclick="go('home')"><div class="logo-icon">R</div><div><b>RenAi</b><span>One AI, Every Language</span></div></div>
-<button class="new-chat" onclick="newChat()">✎ New chat <span>+</span></button>
-<div class="search-box">🔍 <input id="searchInput" placeholder="Search chats" oninput="filterChats()"></div>
-<div class="nav-label">Chats</div>
-<div id="chatList"></div>
-<div class="nav-label">AI Tools</div>
-<div class="nav-item" onclick="go('image')">🎨 Image Generation</div>
-<div class="nav-item" onclick="go('coding')">💻 Coding Assistant</div>
-<div class="nav-item" onclick="go('research')">🔬 Research</div>
-<div class="nav-item" onclick="go('doc')">📄 Document</div>
-<div class="nav-item" onclick="go('data')">📊 Data Analysis</div>
-<div class="nav-item" onclick="go('voice')">🎙️ Voice</div>
-<div class="nav-label">More</div>
-<div class="nav-item" onclick="go('explore')">🔍 Explore</div>
-<div class="nav-item" onclick="go('projects')">📁 Projects</div>
-<div class="nav-item" onclick="go('plans')">💎 Plans</div>
-<div class="nav-item" onclick="go('settings')">⚙️ Settings</div>
-<div class="nav-item" onclick="go('about')">🏢 About RenAi</div>
-<div class="nav-item" onclick="go('contact')">📞 Contact</div>
-<div class="nav-item" onclick="go('help')">❓ Help</div>
-<div class="nav-item" onclick="go('privacy')">🔒 Privacy</div>
-<div class="nav-item" onclick="go('terms')">📜 Terms</div>
-<div class="sidebar-bottom"><div class="user-row" onclick="go('profile')"><div class="user-avatar">R</div><div style="flex:1"><b style="font-size:14px">Ren User</b><br><span style="font-size:12px;color:var(--muted)">Free Plan • Upgrade</span></div><span>›</span></div></div>
-</div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-row">
+        <a class="brand" href="#home" aria-label="RenAI home"><span class="brand-mark"><i></i><b></b></span><span>Ren<span>AI</span></span></a>
+        <button class="icon-btn mobile-only" id="closeSidebar" aria-label="Close menu">×</button>
+      </div>
+      <button class="new-chat" data-action="new-chat"><span>＋</span> New Chat <kbd>⌘ K</kbd></button>
+      <div class="nav-scroll">
+        <div class="nav-label">WORKSPACE</div>
+        <nav class="nav-list" id="mainNav">
+          <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span>Home</button>
+          <button class="nav-item" data-page="chat"><span class="nav-icon">◌</span>AI Chat</button>
+          <button class="nav-item" data-page="explore"><span class="nav-icon">✧</span>Explore AI</button>
+          <button class="nav-item" data-page="research"><span class="nav-icon">⌕</span>Deep Research</button>
+          <button class="nav-item" data-page="studio"><span class="nav-icon">▧</span>AI Studio</button>
+          <button class="nav-item" data-page="image"><span class="nav-icon">▨</span>Image Studio</button>
+          <button class="nav-item" data-page="coding"><span class="nav-icon">‹ ›</span>Coding</button>
+          <button class="nav-item" data-page="writing"><span class="nav-icon">✎</span>Writing</button>
+          <button class="nav-item" data-page="voice"><span class="nav-icon">◖))</span>Voice Assistant</button>
+        </nav>
+        <div class="nav-label section-label">YOUR SPACE</div>
+        <nav class="nav-list">
+          <button class="nav-item" data-page="projects"><span class="nav-icon">▣</span>Projects</button>
+          <button class="nav-item" data-page="files"><span class="nav-icon">▤</span>My Files</button>
+          <button class="nav-item" data-page="history"><span class="nav-icon">◷</span>History</button>
+          <button class="nav-item" data-page="saved"><span class="nav-icon">☆</span>Saved Items</button>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
+        <button class="nav-item" data-page="help"><span class="nav-icon">?</span>Help & Support</button>
+        <div class="user-card" id="userCard"><div class="avatar">V</div><div class="user-meta"><strong>RenAI User</strong><small>Personal workspace</small></div><button class="more-btn" data-page="profile">•••</button></div>
+      </div>
+    </aside>
 
-<div class="main">
-<div class="topbar">
-<button class="icon-btn" onclick="toggleSidebar()">☰</button>
-<button class="icon-btn back-btn" id="backBtn" onclick="goBack()">←</button>
-<div class="model-wrap"><button class="model-btn" onclick="toggleModel()"><span id="modelName">RenAi 1.0</span> <span>⌄</span></button>
-<div class="model-drop" id="modelDrop"><div class="model-opt" onclick="setModel('RenAi 1.0')"><b>RenAi 1.0</b><br><small>Smart & Fast • Free</small></div><div class="model-opt" onclick="setModel('RenAi 1.0 Pro')"><b>RenAi 1.0 Pro 💎</b><br><small>Advanced • Coding • Research</small></div><div class="model-opt" onclick="setModel('RenAi Max')"><b>RenAi Max ⚡</b><br><small>Most Powerful • Ultra</small></div></div></div>
-<button class="icon-btn" onclick="toggleTheme()">🌙</button>
-<button class="icon-btn" onclick="shareChat()">↗</button>
-<button class="icon-btn" style="font-weight:700;font-size:14px" onclick="go('profile')">R</button>
-</div>
-
-<div class="content" id="content">
-<div class="section active" id="sec-home"><div class="center"><div class="center-icon">R</div><h1>What can I help with?</h1><p>I'm <b>RenAi</b> - One AI, Every Language.<br>Chat, Create, Code, Research - sab kuch ek jagah.</p><div class="suggest-grid"><div class="suggest" onclick="askThis('Help me with my studies')"><b>📚 Studies</b><p>Padhai me help chahiye? Plan bana du?</p></div><div class="suggest" onclick="askThis('Give me a business idea')"><b>💼 Business Idea</b><p>Gaon / Sheher ke liye best idea</p></div><div class="suggest" onclick="askThis('Write Python code for calculator')"><b>💻 Write Code</b><p>Website, App, Calculator - kuch bhi</p></div><div class="suggest" onclick="askThis('Teach me English')"><b>🌍 Learn English</b><p>Roz thoda-thoda English seekho</p></div></div></div></div>
-
-<div class="section" id="sec-chat"><div id="chatArea" style="max-width:740px;margin:0 auto"></div></div>
-
-<div class="section" id="sec-image"><div style="max-width:740px;margin:0 auto"><h2>🎨 Image Generation - RenAi</h2><div class="box"><textarea id="imgPrompt" placeholder="Example: Cute cartoon boy with AI robot..."></textarea><select id="imgStyle"><option>Cartoon</option><option>Realistic</option><option>3D</option><option>Logo</option><option>Anime</option></select><button class="btn" style="margin-top:10px" onclick="generateImage()">✨ Generate Image</button><div id="imgResult"></div></div></div></div>
-<div class="section" id="sec-coding"><div style="max-width:740px;margin:0 auto"><h2>💻 Coding Assistant - RenAi</h2><div class="box"><textarea id="codePrompt" placeholder="What do you want to build? Example: calculator, todo app..."></textarea><button class="btn" style="margin-top:10px" onclick="generateCode()">Generate Code</button><div id="codeResult" style="margin-top:12px"></div></div></div></div>
-<div class="section" id="sec-research"><div style="max-width:740px;margin:0 auto"><h2>🔬 Research Assistant - RenAi</h2><div class="box"><textarea id="researchPrompt" placeholder="What do you want to research?"></textarea><button class="btn" style="margin-top:10px" onclick="doResearch()">🔍 Start Research</button><div id="researchResult"></div></div></div></div>
-<div class="section" id="sec-doc"><div style="max-width:740px;margin:0 auto"><h2>📄 Document Analysis - RenAi</h2><div class="box"><input type="file" id="docFile" accept=".pdf,.txt,.doc,.docx"><button class="btn" style="margin-top:10px" onclick="analyzeDoc()">Analyze Document</button><div id="docResult"></div></div></div></div>
-<div class="section" id="sec-data"><div style="max-width:740px;margin:0 auto"><h2>📊 Data Analysis - RenAi</h2><div class="box"><input type="file" id="dataFile" accept=".csv,.txt,.xlsx"><button class="btn" style="margin-top:10px" onclick="showDataDemo()">Analyze Data</button><div id="dataResult"></div></div></div></div>
-<div class="section" id="sec-voice"><div style="max-width:740px;margin:0 auto"><h2>🎙️ Voice Assistant - RenAi</h2><div class="box" style="text-align:center"><div style="font-size:60px">🎙️</div><button class="btn" onclick="startVoice()">🎤 Start Speaking</button><button class="btn-ghost" onclick="speakText()">🔊 Speak Last Answer</button><p id="voiceText" style="margin-top:12px"></p></div></div></div>
-<div class="section" id="sec-explore"><div style="max-width:740px;margin:0 auto"><h2>🔍 Explore RenAi Tools</h2><div class="grid"><div class="card" onclick="go('image')"><b>🎨 Image</b><p>Text to Image</p></div><div class="card" onclick="go('coding')"><b>💻 Coding</b><p>Build & Fix</p></div><div class="card" onclick="go('research')"><b>🔬 Research</b><p>Deep Research</p></div><div class="card" onclick="go('doc')"><b>📄 Document</b><p>PDF Analysis</p></div><div class="card" onclick="go('data')"><b>📊 Data</b><p>Charts</p></div><div class="card" onclick="go('voice')"><b>🎙️ Voice</b><p>Voice Chat</p></div></div></div></div>
-<div class="section" id="sec-projects"><div style="max-width:740px;margin:0 auto"><h2>📁 Projects - RenAi</h2><div class="box"><input id="projName" placeholder="Project name"><button class="btn" style="margin-top:10px" onclick="createProject()">+ Create Project</button><div id="projList"></div></div></div></div>
-<div class="section" id="sec-profile"><div style="max-width:740px;margin:0 auto"><h2>👤 Profile - RenAi</h2><div class="box"><div style="display:flex;gap:12px;align-items:center"><div class="avatar" style="width:56px;height:56px;font-size:20px">R</div><div><b id="profileNameShow">Ren User</b><br><span style="color:var(--muted);font-size:13px">Free Plan • <span id="profileEmailShow">ren@example.com</span></span></div></div><input id="profileName" placeholder="Your name" value="Ren User"><input id="profileEmail" placeholder="Email" value="ren@example.com"><button class="btn" style="margin-top:10px" onclick="saveProfile()">Save Profile</button> <button class="btn-ghost" onclick="toast('Logged out!')">Log Out</button></div></div></div>
-<div class="section" id="sec-settings"><div style="max-width:740px;margin:0 auto"><h2>⚙️ Settings - RenAi</h2><div class="box"><h3>Appearance</h3><div class="toggle"><span>🌙 Dark Mode / ☀️ Light Mode</span><div class="switch" id="themeSwitch" onclick="toggleTheme()"></div></div><div class="toggle"><span>🔔 Notifications</span><div class="switch on" onclick="this.classList.toggle('on');toast('Notifications updated!')"></div></div><h3 style="margin-top:16px">Language</h3><select id="langSelect" onchange="toast('Language changed to '+this.value)"><option>English</option><option>Hindi</option><option>Hinglish</option></select><button class="btn" style="margin-top:14px" onclick="toast('Settings saved!')">Save Settings</button> <button class="btn-ghost" onclick="clearChats()">🗑️ Clear All Chats</button><br><br><button class="btn-ghost" onclick="go('privacy')">🔒 View Privacy Policy →</button> <button class="btn-ghost" onclick="go('terms')">📜 View Terms →</button></div></div></div>
-<div class="section" id="sec-plans"><div style="max-width:860px;margin:0 auto"><h2 style="text-align:center">💎 RenAi Plans</h2><p style="text-align:center;color:var(--muted);margin-top:6px">Start free. Upgrade anytime.</p><div style="text-align:center;margin-top:14px"><button class="btn-ghost" id="monthlyBtn" onclick="setBilling('monthly')">Monthly</button> <button class="btn" id="yearlyBtn" onclick="setBilling('yearly')">Yearly • Save 20%</button></div><div class="plan-grid"><div class="plan-card"><h3>FREE</h3><div class="price">₹0<small> / forever</small></div><ul><li>✅ 20 chats daily</li><li>✅ RenAi 1.0</li><li>✅ Basic Tools</li></ul><button class="btn-ghost" style="width:100%" onclick="selectPlan('FREE')">Current Plan</button></div><div class="plan-card pop"><div class="badge">MOST POPULAR</div><h3>PLUS</h3><div class="price" id="plusPrice">₹299<small> / month</small></div><ul><li>✅ Unlimited Chats</li><li>✅ Image Generation</li><li>✅ RenAi 1.0 Pro</li></ul><button class="btn" style="width:100%" onclick="selectPlan('PLUS')">Upgrade to Plus</button></div><div class="plan-card"><h3>PRO</h3><div class="price" id="proPrice">₹799<small> / month</small></div><ul><li>✅ Everything in Plus</li><li>✅ Video + Voice</li><li>✅ Coding Pro</li></ul><button class="btn" style="width:100%" onclick="selectPlan('PRO')">Upgrade to Pro</button></div><div class="plan-card"><h3>ULTRA</h3><div class="price" id="ultraPrice">₹1499<small> / month</small></div><ul><li>✅ Everything in Pro</li><li>✅ RenAi Max</li><li>✅ Unlimited Everything</li></ul><button class="btn" style="width:100%" onclick="selectPlan('ULTRA')">Go Ultra</button></div></div></div></div>
-<div class="section" id="sec-about"><div style="max-width:740px;margin:0 auto"><h2>🏢 About RenAi</h2><div class="box"><h3>One AI, Every Language - RenAi</h3><p>RenAi is made for the world. Har insaan ke paas ek smart, fast aur friendly AI assistant ho, jo har language samjhe. Ye ChatGPT jaisa simple hai, par apna hai - RenAi.</p><p style="margin-top:10px"><b>What we do:</b><br>✅ Chat & Text<br>✅ Image, Voice<br>✅ Coding, Research, Study<br>✅ Document & Data</p><p style="margin-top:10px"><b>Founded:</b> 2026 • <b>Vision:</b> AI for everyone, in every language.</p><button class="btn" style="margin-top:12px" onclick="go('contact')">📞 Contact Us</button> <button class="btn-ghost" onclick="go('plans')">💎 See Plans</button></div></div></div>
-<div class="section" id="sec-contact"><div style="max-width:740px;margin:0 auto"><h2>📞 Contact RenAi</h2><div class="box"><p><b>Email:</b> hello@renai.ai<br><b>Support:</b> support@renai.ai<br><b>Time:</b> Mon - Sat, 10 AM - 7 PM</p><input id="contactName" placeholder="Your name"><input id="contactEmail" placeholder="Your email"><textarea id="contactMsg" placeholder="Your message..."></textarea><button class="btn" style="margin-top:10px" onclick="sendContact()">Send Message</button><p id="contactDone" style="margin-top:10px"></p></div></div></div>
-<div class="section" id="sec-help"><div style="max-width:740px;margin:0 auto"><h2>❓ Help & FAQ - RenAi</h2><div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">How to start a new chat? <span>⌄</span></div><div class="faq-a">Sidebar me "New chat" dabao. Fresh chat khul jayega.</div></div><div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Is RenAi free? <span>⌄</span></div><div class="faq-a">Haan! FREE plan me daily 20 chats free hai. PLUS ₹299 se start hota hai.</div></div><div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Is my data private? <span>⌄</span></div><div class="faq-a">Haan! Hum tumhara data bechte nahi. Privacy Policy padho.</div></div><div class="box"><button class="btn" onclick="go('chat')">💬 Chat for Help</button> <button class="btn-ghost" onclick="go('contact')">📞 Contact Us</button></div></div></div>
-<div class="section" id="sec-privacy"><div style="max-width:740px;margin:0 auto"><h2>🔒 Privacy Policy - RenAi</h2><p style="color:var(--muted);font-size:13px">Last updated: November 5, 2026 • RenAi</p><div class="box"><h3>1. What We Collect</h3><p>• Your name & email<br>• Your chats<br>• We do NOT collect passwords, bank details, OTP.</p><h3 style="margin-top:14px">2. How We Use</h3><p>• To show your chats and projects<br>• We NEVER sell your data.</p><h3 style="margin-top:14px">3. Your Control</h3><p>• Delete chats anytime - Settings > Clear Chats<br>• Contact us to delete account</p><p style="margin-top:10px">Mail: <b>privacy@renai.ai</b></p></div></div></div>
-<div class="section" id="sec-terms"><div style="max-width:740px;margin:0 auto"><h2>📜 Terms of Service - RenAi</h2><p style="color:var(--muted);font-size:13px">Last updated: November 5, 2026 • RenAi</p><div class="box"><h3>1. Using RenAi</h3><p>• RenAi is for learning, creating, business - legal use ke liye.<br>• Fake, illegal, harmful kaam ke liye use mat karo.</p><h3 style="margin-top:14px">2. AI Answers</h3><p>• AI kabhi-kabhi galti kar sakta hai. Important kaam ke liye khud check karo.</p><h3 style="margin-top:14px">3. Plans</h3><p>• FREE hamesha free rahega.<br>• Paid plan kabhi bhi cancel kar sakte ho.</p></div></div></div>
-</div>
-
-<div id="bottomBar">
-<div class="input-wrap"><div class="input-box"><button onclick="document.getElementById('fileInput').click()">+</button><input type="file" id="fileInput" hidden onchange="handleFile(this)"><textarea id="inp" rows="1" placeholder="Ask RenAi anything..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendMsg();}"></textarea><button onclick="document.getElementById('imgInput').click()">🖼️</button><input type="file" id="imgInput" accept="image/*" hidden onchange="handleImage(this)"><button onclick="startVoice()">🎤</button><button class="send" onclick="sendMsg()">↑</button></div></div>
-<div class="footer"><div class="footer-links"><span onclick="go('about')">About RenAi</span><span onclick="go('contact')">Contact</span><span onclick="go('help')">Help</span><span onclick="go('privacy')">Privacy</span><span onclick="go('terms')">Terms</span><span onclick="go('plans')">Plans</span></div><p><b>RenAi</b> • One AI, Every Language • © 2026 • Made for the World</p></div>
-</div>
-</div>
-</div>
-
-<div class="modal" id="salesModal"><div class="modal-card"><h3>Enterprise - Contact Sales</h3><input placeholder="Your name"><input placeholder="Company email"><button class="btn" style="width:100%;margin-top:12px" onclick="closeModal();toast('Request sent!')">Send Request</button><button class="btn-ghost" style="width:100%;margin-top:8px" onclick="closeModal()">Close</button></div></div>
-<div class="modal" id="editModal"><div class="modal-card"><h3>✏️ Edit Message</h3><textarea id="editText" rows="3"></textarea><button class="btn" style="width:100%;margin-top:12px" onclick="saveEdit()">Save & Resend</button><button class="btn-ghost" style="width:100%;margin-top:8px" onclick="closeEdit()">Cancel</button></div></div>
-
-<script>
-let stack=['home'], currentModel=localStorage.getItem('renai_model')||'RenAi 1.0', editEl=null;
-let chats=JSON.parse(localStorage.getItem('renai_chats')||'[]');
-let currentChatId=null;
-let projects=JSON.parse(localStorage.getItem('renai_projects')||'[]');
-let lastAIText='Hello! I am RenAi.';
-function saveAll(){localStorage.setItem('renai_chats',JSON.stringify(chats));localStorage.setItem('renai_projects',JSON.stringify(projects));localStorage.setItem('renai_model',currentModel);}
-function toast(m){let o=document.querySelector('.toast');if(o)o.remove();let d=document.createElement('div');d.className='toast';d.innerText=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2500);}
-function toggleSidebar(){let s=document.getElementById('sidebar');if(window.innerWidth<=820){s.classList.toggle('open');}else{s.classList.toggle('hidden');}}
-function show(p){let el=document.getElementById('sec-'+p);if(!el){toast('Section not found: '+p);return;}document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));el.classList.add('active');let back=document.getElementById('backBtn');if(stack.length>1)back.classList.add('show');else back.classList.remove('show');document.getElementById('content').scrollTop=0;if(window.innerWidth<=820)document.getElementById('sidebar').classList.remove('open');let bottom=document.getElementById('bottomBar');if(p==='home'||p==='chat')bottom.classList.add('show');else bottom.classList.remove('show');}
-function go(p){if(stack[stack.length-1]!==p)stack.push(p);show(p);}
-function goBack(){if(stack.length>1){stack.pop();show(stack[stack.length-1]);}}
-function toggleModel(){document.getElementById('modelDrop').classList.toggle('show');}
-function setModel(n){currentModel=n;document.getElementById('modelName').innerText=n;document.getElementById('modelDrop').classList.remove('show');saveAll();toast('Model changed to '+n);}
-function applyTheme(){let t=localStorage.getItem('renai_theme')||'dark';document.documentElement.setAttribute('data-theme',t);let sw=document.getElementById('themeSwitch');if(sw)sw.classList.toggle('on',t==='light');}
-function toggleTheme(){let cur=document.documentElement.getAttribute('data-theme');let next=cur==='light'?'dark':'light';localStorage.setItem('renai_theme',next);applyTheme();toast(next==='light'?'Light Mode On':'Dark Mode On');}
-function renderChatList(){let list=document.getElementById('chatList');if(!chats.length){list.innerHTML='<div style="padding:10px;color:var(--muted);font-size:13px">No chats yet. Start new chat!</div>';return;}list.innerHTML=chats.map(c=>`<div class="chat-item ${c.id===currentChatId?'active':''}" data-title="${c.title.replace(/"/g,'')}" onclick="openChatById('${c.id}')"><span>${c.title.slice(0,26)}</span></div>`).join('');}
-function renderChatArea(){let area=document.getElementById('chatArea');let c=chats.find(x=>x.id===currentChatId);if(!c){area.innerHTML=`<div class="msg"><div class="avatar">R</div><div><div class="bubble">Hello! I'm <b>RenAi</b>. Ask me anything in English, Hindi or Hinglish.</div><div class="msg-actions"><button onclick="copyMsg(this)">📋 Copy</button><button onclick="regenerate(this)">🔄 Regenerate</button></div></div></div>`;return;}area.innerHTML=c.msgs.map(m=>m.role==='user'?`<div class="msg user"><div class="avatar">Y</div><div><div class="bubble">${m.text}</div><div class="msg-actions" style="justify-content:flex-end"><button onclick="copyMsg(this)">📋 Copy</button></div></div></div>`:`<div class="msg"><div class="avatar">R</div><div><div class="bubble">${m.text}</div><div class="msg-actions"><button onclick="copyMsg(this)">📋 Copy</button><button onclick="regenerate(this)">🔄 Regenerate</button><button onclick="toast('👍 Thanks!')">👍</button></div></div></div>`).join('');}
-function newChat(){let id='c'+Date.now();let c={id,title:'New Chat',msgs:[]};chats.unshift(c);currentChatId=id;saveAll();renderChatList();renderChatArea();go('chat');toast('New Chat Created!');}
-function filterChats(){let q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('#chatList .chat-item').forEach(el=>{el.style.display=el.getAttribute('data-title').toLowerCase().includes(q)?'flex':'none';});}
-function openChatById(id){currentChatId=id;saveAll();renderChatList();renderChatArea();go('chat');}
-function clearChats(){if(confirm('Clear all chats?')){chats=[];currentChatId=null;saveAll();renderChatList();renderChatArea();toast('All chats cleared!');}}
-function askThis(t){go('chat');setTimeout(()=>{document.getElementById('inp').value=t;sendMsg();},200);}
-function copyMsg(btn){let b=btn.closest('.msg').querySelector('.bubble');navigator.clipboard?.writeText(b?b.innerText:'');toast('Copied!');}
-function copyText(t){navigator.clipboard?.writeText(t);toast('Code copied!');}
-function regenerate(btn){setTimeout(()=>{addAIMsg("Here is a fresh, better answer from RenAi! ✨ I regenerated it for you with more clarity.");},300);}
-function editMsg(btn){editEl=btn.closest('.msg');document.getElementById('editText').value=editEl
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="openSidebar" aria-label="Open menu">☰</button>
+        <div class="breadcrumbs"><span>RenAI</span><span class="crumb-slash">/</span><strong id="crumbCurrent">Home</strong></div>
+        <div class="top-actions"><span class="status-pill"><i></i> Workspace</span><button class="icon-btn" id="themeToggle" title="Toggle theme">☼</button><button class="upgrade-btn" data-page="pricing">Upgrade <span>↗</span></button></div>
+      </header>
+      <div class="page-host" id="pageHost" aria-live="polite"></div>
+      <footer class="app-footer"><span>RenAI can make mistakes. Verify important information.</span><span>BEYOND INTELLIGENCE. <b>BEYOND LIMITS.</b></span></footer>
+    </main>
+  </div>
+  <div class="toast-region" id="toastRegion"></div>
+  <input type="file" id="filePicker" hidden multiple />
+  <script src="app.js"></script>
+</body>
+</html>
